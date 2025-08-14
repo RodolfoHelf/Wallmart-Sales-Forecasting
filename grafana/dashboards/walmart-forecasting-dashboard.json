@@ -1,0 +1,199 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Walmart Sales Forecasting Dashboard",
+    "tags": ["walmart", "forecasting", "sales"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "System Health Overview",
+        "type": "stat",
+        "targets": [
+          {
+            "refId": "A",
+            "rawQuery": true,
+            "rawSql": "SELECT 'API Status' as metric, CASE WHEN COUNT(*) > 0 THEN 'Healthy' ELSE 'Critical' END as value FROM sales_data LIMIT 1",
+            "format": "table"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "green", "value": 1}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 8, "w": 6, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Total Sales Records",
+        "type": "stat",
+        "targets": [
+          {
+            "refId": "A",
+            "rawQuery": true,
+            "rawSql": "SELECT COUNT(*) as value FROM sales_data",
+            "format": "table"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "short"
+          }
+        },
+        "gridPos": {"h": 8, "w": 6, "x": 6, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "Total Forecasts Generated",
+        "type": "stat",
+        "targets": [
+          {
+            "refId": "A",
+            "rawQuery": true,
+            "rawSql": "SELECT COUNT(*) as value FROM forecasts",
+            "format": "table"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "short"
+          }
+        },
+        "gridPos": {"h": 8, "w": 6, "x": 12, "y": 0}
+      },
+      {
+        "id": 4,
+        "title": "Average Model MAPE",
+        "type": "stat",
+        "targets": [
+          {
+            "refId": "A",
+            "rawQuery": true,
+            "rawSql": "SELECT ROUND(AVG(mape_score), 2) as value FROM model_performance",
+            "format": "table"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "thresholds"},
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 10},
+                {"color": "red", "value": 20}
+              ]
+            },
+            "unit": "percent"
+          }
+        },
+        "gridPos": {"h": 8, "w": 6, "x": 18, "y": 0}
+      },
+      {
+        "id": 5,
+        "title": "Weekly Sales Trend",
+        "type": "timeseries",
+        "targets": [
+          {
+            "refId": "A",
+            "rawQuery": true,
+            "rawSql": "SELECT date, SUM(weekly_sales) as total_sales FROM sales_data GROUP BY date ORDER BY date",
+            "format": "time_series"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "currencyUSD"
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+      },
+      {
+        "id": 6,
+        "title": "Forecast vs Actual Sales",
+        "type": "timeseries",
+        "targets": [
+          {
+            "refId": "A",
+            "rawQuery": true,
+            "rawSql": "SELECT f.forecast_date, f.predicted_sales as forecast, s.weekly_sales as actual FROM forecasts f JOIN sales_data s ON f.store_id = s.store_id AND f.dept_id = s.dept_id AND f.forecast_date = s.date ORDER BY f.forecast_date",
+            "format": "time_series"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "currencyUSD"
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+      },
+      {
+        "id": 7,
+        "title": "Model Performance by Store",
+        "type": "barchart",
+        "targets": [
+          {
+            "refId": "A",
+            "rawQuery": true,
+            "rawSql": "SELECT s.store_name, AVG(mp.mape_score) as avg_mape FROM model_performance mp JOIN stores s ON mp.store_id = s.store_id GROUP BY s.store_id, s.store_name ORDER BY avg_mape",
+            "format": "table"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "percent"
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}
+      },
+      {
+        "id": 8,
+        "title": "Top Performing Departments",
+        "type": "barchart",
+        "targets": [
+          {
+            "refId": "A",
+            "rawQuery": true,
+            "rawSql": "SELECT d.dept_name, SUM(s.weekly_sales) as total_sales FROM sales_data s JOIN departments d ON s.dept_id = d.dept_id GROUP BY d.dept_id, d.dept_name ORDER BY total_sales DESC LIMIT 10",
+            "format": "table"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "currencyUSD"
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16}
+      }
+    ],
+    "time": {
+      "from": "now-30d",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}
+
+
+
+
+
+
+
+
+

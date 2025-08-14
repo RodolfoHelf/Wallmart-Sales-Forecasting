@@ -1,0 +1,22 @@
+name: walmart-sales-forecasting
+
+conda_env: conda.yaml
+
+entry_points:
+  train:
+    command: "python models/train_models.py"
+  evaluate:
+    command: "python models/evaluate_models.py"
+  predict:
+    command: "python models/predict.py"
+  register:
+    command: "python models/register_model.py"
+
+
+
+
+
+
+
+
+

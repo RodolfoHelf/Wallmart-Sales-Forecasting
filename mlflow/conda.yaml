@@ -1,0 +1,30 @@
+name: walmart-forecasting
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - mlflow
+    - pandas
+    - numpy
+    - scikit-learn
+    - lightgbm
+    - xgboost
+    - prophet
+    - statsmodels
+    - plotly
+    - matplotlib
+    - seaborn
+    - sqlalchemy
+    - psycopg2-binary
+
+
+
+
+
+
+
+
+

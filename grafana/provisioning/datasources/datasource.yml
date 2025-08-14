@@ -1,0 +1,25 @@
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    url: postgres:5432
+    database: walmart_forecasting
+    user: walmart_user
+    password: walmart_password
+    jsonData:
+      sslmode: disable
+      maxOpenConns: 100
+      maxIdleConns: 100
+      connMaxLifetime: 14400
+    secureJsonData: {}
+    editable: true
+
+
+
+
+
+
+
+
+
