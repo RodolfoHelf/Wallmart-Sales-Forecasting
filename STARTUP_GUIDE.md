@@ -62,7 +62,7 @@ docker-compose ps
 ```
 
 **Services will be available at:**
-- **PostgreSQL**: `localhost:5432`
+- **PostgreSQL**: `http://localhost:5432`
 - **Grafana**: `http://localhost:3000` (admin/admin)
 - **MLflow**: `http://localhost:5000`
 
