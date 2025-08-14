@@ -40,6 +40,10 @@ class WalmartDataProcessor:
             logger.info(f"Loaded {len(self.data)} records with {len(self.data.columns)} columns")
             logger.info(f"Columns: {list(self.data.columns)}")
             
+            # Display data types before processing
+            logger.info("Data types before processing:")
+            logger.info(self.data.dtypes.to_dict())
+            
             # Display first few rows
             logger.info("First 5 rows:")
             logger.info(self.data.head())
@@ -76,6 +80,14 @@ class WalmartDataProcessor:
             # Final data info
             logger.info(f"Cleaned data: {len(clean_data)} records")
             logger.info(f"Data types: {clean_data.dtypes.to_dict()}")
+            
+            # Verify Date column conversion
+            if 'Date' in clean_data.columns:
+                if clean_data['Date'].dtype == 'datetime64[ns]':
+                    logger.info("✅ 'Date' column successfully converted to datetime")
+                    logger.info(f"Date range: {clean_data['Date'].min()} to {clean_data['Date'].max()}")
+                else:
+                    logger.warning(f"⚠️  'Date' column type is {clean_data['Date'].dtype}, expected datetime64[ns]")
             
             return clean_data
             
@@ -114,11 +126,26 @@ class WalmartDataProcessor:
     def _convert_data_types(self, data: pd.DataFrame) -> pd.DataFrame:
         """Convert data types to appropriate formats"""
         try:
-            # Convert date columns
-            date_columns = [col for col in data.columns if 'date' in col.lower() or 'time' in col.lower()]
+            # Explicitly convert the 'Date' column to datetime
+            if 'Date' in data.columns:
+                try:
+                    data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
+                    logger.info("Converted 'Date' column to datetime")
+                    
+                    # Check for any parsing errors
+                    invalid_dates = data['Date'].isna().sum()
+                    if invalid_dates > 0:
+                        logger.warning(f"Found {invalid_dates} invalid dates in 'Date' column")
+                        
+                except Exception as e:
+                    logger.error(f"Error converting 'Date' column to datetime: {str(e)}")
+                    raise
+            
+            # Convert other date columns
+            date_columns = [col for col in data.columns if ('date' in col.lower() or 'time' in col.lower()) and col != 'Date']
             for col in date_columns:
                 try:
-                    data[col] = pd.to_datetime(data[col])
+                    data[col] = pd.to_datetime(data[col], errors='coerce')
                     logger.info(f"Converted {col} to datetime")
                 except Exception as e:
                     logger.warning(f"Could not convert {col} to datetime: {str(e)}")
@@ -161,6 +188,8 @@ class WalmartDataProcessor:
                 data['is_weekend'] = data[date_col].dt.dayofweek.isin([5, 6])
                 
                 logger.info("Added date-based features")
+            else:
+                logger.warning("No datetime columns found for derived features")
             
             # Add sales-based features
             sales_columns = [col for col in data.columns if 'sales' in col.lower()]
@@ -180,6 +209,48 @@ class WalmartDataProcessor:
         except Exception as e:
             logger.error(f"Error adding derived features: {str(e)}")
             raise
+    
+    def verify_date_conversion(self) -> bool:
+        """Verify that the Date column is properly converted to datetime"""
+        try:
+            if self.data is None:
+                logger.error("No data loaded to verify")
+                return False
+            
+            if 'Date' not in self.data.columns:
+                logger.warning("No 'Date' column found in data")
+                return False
+            
+            date_type = self.data['Date'].dtype
+            if date_type == 'datetime64[ns]':
+                logger.info("✅ Date column is properly converted to datetime")
+                logger.info(f"Date range: {self.data['Date'].min()} to {self.data['Date'].max()}")
+                logger.info(f"Total unique dates: {self.data['Date'].nunique()}")
+                return True
+            else:
+                logger.error(f"❌ Date column type is {date_type}, expected datetime64[ns]")
+                logger.info("Attempting to convert Date column...")
+                
+                try:
+                    self.data['Date'] = pd.to_datetime(self.data['Date'], errors='coerce')
+                    invalid_dates = self.data['Date'].isna().sum()
+                    if invalid_dates > 0:
+                        logger.warning(f"Found {invalid_dates} invalid dates after conversion")
+                    
+                    if self.data['Date'].dtype == 'datetime64[ns]':
+                        logger.info("✅ Date column successfully converted to datetime")
+                        return True
+                    else:
+                        logger.error("Failed to convert Date column to datetime")
+                        return False
+                        
+                except Exception as e:
+                    logger.error(f"Error converting Date column: {str(e)}")
+                    return False
+                    
+        except Exception as e:
+            logger.error(f"Error verifying date conversion: {str(e)}")
+            return False
     
     def analyze_data(self) -> Dict[str, Any]:
         """Perform exploratory data analysis"""
@@ -236,6 +307,18 @@ class WalmartDataProcessor:
                         'max_date': self.data[col].max().strftime('%Y-%m-%d'),
                         'date_range_days': (self.data[col].max() - self.data[col].min()).days
                     }
+            
+            # Special analysis for Date column
+            if 'Date' in self.data.columns:
+                analysis['date_column_analysis'] = {
+                    'column_name': 'Date',
+                    'data_type': str(self.data['Date'].dtype),
+                    'is_datetime': self.data['Date'].dtype == 'datetime64[ns]',
+                    'total_records': len(self.data['Date']),
+                    'unique_dates': self.data['Date'].nunique() if self.data['Date'].dtype == 'datetime64[ns]' else 'N/A',
+                    'missing_values': self.data['Date'].isnull().sum(),
+                    'sample_values': self.data['Date'].head(3).tolist() if self.data['Date'].dtype == 'datetime64[ns]' else self.data['Date'].head(3).tolist()
+                }
             
             logger.info("Data analysis completed")
             return analysis
@@ -359,6 +442,12 @@ def main():
         
         # Load and process data
         processor.load_csv_data()
+        
+        # Verify Date column conversion
+        date_ok = processor.verify_date_conversion()
+        if not date_ok:
+            logger.warning("Date column conversion issues detected, but continuing...")
+        
         clean_data = processor.clean_data()
         
         # Analyze data
