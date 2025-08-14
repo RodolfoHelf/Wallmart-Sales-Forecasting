@@ -339,10 +339,9 @@ class WalmartDataProcessor:
             # This mapping should be adjusted based on actual CSV structure
             column_mapping = {
                 'Store': 'store_id',
-                'Dept': 'dept_id',
                 'Date': 'date',
                 'Weekly_Sales': 'weekly_sales',
-                'IsHoliday': 'is_holiday',
+                'Holiday_Flag': 'is_holiday',
                 'Temperature': 'temperature',
                 'Fuel_Price': 'fuel_price',
                 'CPI': 'cpi',
@@ -353,7 +352,7 @@ class WalmartDataProcessor:
             data_for_db = self.data.rename(columns=column_mapping)
             
             # Select only the columns we need
-            db_columns = ['store_id', 'dept_id', 'date', 'weekly_sales', 'is_holiday', 
+            db_columns = ['store_id', 'date', 'weekly_sales', 'is_holiday', 
                          'temperature', 'fuel_price', 'cpi', 'unemployment_rate']
             
             available_columns = [col for col in db_columns if col in data_for_db.columns]
@@ -403,7 +402,7 @@ class WalmartDataProcessor:
                     for record in batch:
                         sales_data = SalesData(
                             store_id=record['store_id'],
-                            dept_id=record['dept_id'],
+
                             date=record['date'],
                             weekly_sales=Decimal(str(record['weekly_sales'])) if record['weekly_sales'] else None,
                             is_holiday=record['is_holiday'],

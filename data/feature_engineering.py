@@ -579,10 +579,16 @@ class WalmartFeatureEngineer:
         if categorical_cols:
             self.create_encoding_features(categorical_cols)
         
+        if categorical_cols:
+            self.create_statistical_features(target_col, categorical_cols)
+        
         if numeric_cols:
             self.create_interaction_features(numeric_cols)
-            self.create_statistical_features(target_col, ['store_id', 'dept_id'])
-            self.create_weather_features('temperature', 'fuel_price')
+            # Create weather features if temperature and fuel_price columns exist
+            temp_cols = [col for col in numeric_cols if 'temperature' in col.lower()]
+            fuel_cols = [col for col in numeric_cols if 'fuel' in col.lower()]
+            if temp_cols and fuel_cols:
+                self.create_weather_features(temp_cols[0], fuel_cols[0])
         
         # Remove correlated features
         self.remove_correlated_features()

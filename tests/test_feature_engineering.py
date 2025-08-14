@@ -35,10 +35,9 @@ def test_feature_engineering():
             dates = pd.date_range('2023-01-01', periods=100, freq='D')
             sample_data = pd.DataFrame({
                 'Store': np.random.randint(1, 6, 100),
-                'Dept': np.random.randint(1, 4, 100),
                 'Date': dates.strftime('%Y-%m-%d'),  # This will be object type initially
                 'Weekly_Sales': np.random.uniform(10000, 50000, 100),
-                'IsHoliday': np.random.choice([0, 1], 100, p=[0.8, 0.2]),
+                'Holiday_Flag': np.random.choice([0, 1], 100, p=[0.8, 0.2]),
                 'Temperature': np.random.uniform(20, 80, 100),
                 'Fuel_Price': np.random.uniform(2.5, 4.0, 100),
                 'CPI': np.random.uniform(200, 250, 100),
@@ -49,7 +48,21 @@ def test_feature_engineering():
             sample_data.to_csv(csv_path, index=False)
             print(f"   ✅ Created sample data with {len(sample_data)} records")
         else:
-            print("   ✅ Walmart.csv found")
+            print("   ✅ Walmart.csv found, using sample for testing...")
+            # Load the actual CSV and take a sample for testing
+            sample_data = pd.read_csv(csv_path)
+            # Take a sample of 1000 records for testing to avoid memory issues
+            if len(sample_data) > 1000:
+                sample_data = sample_data.sample(n=1000, random_state=42).reset_index(drop=True)
+                print(f"   📊 Sampled {len(sample_data)} records from {len(pd.read_csv(csv_path))} total records")
+            else:
+                print(f"   📊 Using all {len(sample_data)} records")
+            
+            # Save the sample for consistent testing
+            sample_csv_path = project_root / "data" / "Walmart_sample.csv"
+            sample_data.to_csv(sample_csv_path, index=False)
+            print(f"   💾 Saved sample to {sample_csv_path.name}")
+            csv_path = sample_csv_path  # Use the sample for processing
         
         # Test 3: Process data using data processor
         print("3️⃣ Processing data with data processor...")
@@ -103,7 +116,7 @@ def test_feature_engineering():
         
         # Test 9: Create encoding features
         print("9️⃣ Creating encoding features...")
-        categorical_cols = ['Store', 'Dept']
+        categorical_cols = ['Store']  # Only Store column exists
         enhanced_data = engineer.create_encoding_features(categorical_cols)
         print(f"   ✅ Encoding features created. New shape: {enhanced_data.shape}")
         print(f"   🏷️  New encoding columns: {[col for col in enhanced_data.columns if '_encoded' in col or '_freq' in col]}")
@@ -117,7 +130,7 @@ def test_feature_engineering():
         
         # Test 11: Create statistical features
         print("1️⃣1️⃣ Creating statistical features...")
-        enhanced_data = engineer.create_statistical_features('Weekly_Sales', ['Store', 'Dept'])
+        enhanced_data = engineer.create_statistical_features('Weekly_Sales', ['Store'])  # Only Store column exists
         print(f"   ✅ Statistical features created. New shape: {enhanced_data.shape}")
         
         # Test 12: Create weather features
@@ -181,12 +194,11 @@ def quick_demo():
         dates = pd.date_range('2023-01-01', periods=50, freq='D')
         demo_data = pd.DataFrame({
             'Store': np.random.randint(1, 4, 50),
-            'Dept': np.random.randint(1, 3, 50),
             'Date': dates.strftime('%Y-%m-%d'),  # Object type initially
             'Weekly_Sales': np.random.uniform(10000, 50000, 50),
             'Temperature': np.random.uniform(20, 80, 50),
             'Fuel_Price': np.random.uniform(2.5, 4.0, 50),
-            'IsHoliday': np.random.choice([0, 1], 50, p=[0.8, 0.2])
+            'Holiday_Flag': np.random.choice([0, 1], 50, p=[0.8, 0.2])
         })
         
         print(f"📊 Demo data shape: {demo_data.shape}")
@@ -208,7 +220,7 @@ def quick_demo():
         enhanced_data = engineer.create_all_features(
             target_col='Weekly_Sales',
             date_col='Date',
-            categorical_cols=['Store', 'Dept'],
+            categorical_cols=['Store'],  # Only Store column exists
             numeric_cols=['Temperature', 'Fuel_Price']
         )
         
