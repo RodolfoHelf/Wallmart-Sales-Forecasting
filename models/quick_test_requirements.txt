@@ -1,0 +1,10 @@
+# Minimal requirements for Quick Model Test
+# Install with: pip install -r quick_test_requirements.txt
+
+# Core data science libraries (minimal versions for speed)
+pandas>=1.3.0
+numpy>=1.21.0
+
+# No ML libraries needed - using simplified implementations
+# No database connections needed - using synthetic data
+# No MLflow needed - using local logging only
