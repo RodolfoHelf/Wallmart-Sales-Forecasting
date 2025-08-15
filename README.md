@@ -8,7 +8,7 @@ Develop a machine learning-powered sales forecasting dashboard for Walmart's Sou
 ### **Technology Stack**
 - **Backend**: Python with FastAPI for high-performance API
 - **Machine Learning**: MLflow for model versioning and experiment tracking
-- **Monitoring**: Grafana for real-time dashboard monitoring and alerting
+- **Monitoring**: MLflow for experiment tracking and model monitoring
 - **Data Processing**: Pandas, NumPy, Scikit-learn for data science workflows
 - **Forecasting Models**: SARIMAX, Prophet, LightGBM, XGBoost
 - **Visualization**: Plotly, Matplotlib, Seaborn for interactive charts
@@ -23,15 +23,7 @@ Develop a machine learning-powered sales forecasting dashboard for Walmart's Sou
 │ • Weather API  │    │ • ML Models     │    │ • Experiments   │
 │ • Economic Data│    │ • REST API      │    │ • Artifacts     │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
-                                │
-                                ▼
-                       ┌─────────────────┐
-                       │   Grafana      │
-                       │                 │
-                       │ • Dashboards   │
-                       │ • Monitoring   │
-                       │ • Alerts       │
-                       └─────────────────┘
+
 ```
 
 ---
@@ -150,7 +142,7 @@ The PACE model will be applied flexibly:
 ### Prerequisites
 - Python 3.9+
 - PostgreSQL
-- Docker (for Grafana)
+- Docker (for PostgreSQL and MLflow)
 
 ### Installation
 ```bash
@@ -186,7 +178,7 @@ Wallmart-Sales-Forecasting/
 ├── models/                 # ML models and training
 ├── data/                   # Data processing and EDA
 ├── mlflow/                 # MLflow configuration
-├── grafana/                # Grafana dashboards
+
 ├── tests/                  # Test suite
 ├── notebooks/              # Jupyter notebooks
 ├── requirements.txt        # Python dependencies

@@ -23,13 +23,8 @@ class Settings(BaseSettings):
     
     # MLflow Configuration
     MLFLOW_TRACKING_URI: str = "http://localhost:5000"
-    MLFLOW_EXPERIMENT_NAME: str = "walmart_sales_forecasting"
+    MLFLOW_EXPERIMENT_NAME: str = "walmart_forecasting"
     MODEL_ARTIFACT_PATH: str = "./mlflow/artifacts"
-    
-    # Grafana Configuration
-    GRAFANA_URL: str = "http://localhost:3000"
-    GRAFANA_USERNAME: str = "admin"
-    GRAFANA_PASSWORD: str = "admin"
     
     # External APIs
     WEATHER_API_KEY: Optional[str] = None
@@ -55,6 +50,6 @@ if os.getenv("DATABASE_URL"):
     settings.DATABASE_URL = os.getenv("DATABASE_URL")
 if os.getenv("MLFLOW_TRACKING_URI"):
     settings.MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI")
-if os.getenv("GRAFANA_URL"):
-    settings.GRAFANA_URL = os.getenv("GRAFANA_URL")
+if os.getenv("MLFLOW_EXPERIMENT_NAME"):
+    settings.MLFLOW_EXPERIMENT_NAME = os.getenv("MLFLOW_EXPERIMENT_NAME")
 

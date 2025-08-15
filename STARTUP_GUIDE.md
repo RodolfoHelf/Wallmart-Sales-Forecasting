@@ -6,7 +6,7 @@ This is a comprehensive ML-powered sales forecasting dashboard for Walmart's Sou
 
 - **Backend**: FastAPI (Python)
 - **ML Pipeline**: MLflow for experiment tracking and model versioning
-- **Monitoring**: Grafana for real-time dashboards and alerts
+- **Monitoring**: MLflow for experiment tracking and model monitoring
 - **Database**: PostgreSQL for data storage
 - **ML Models**: SARIMAX, LightGBM, XGBoost, Prophet, and Ensemble approaches
 
@@ -54,7 +54,7 @@ cp env.example .env
 ### 3. Start Infrastructure Services
 
 ```bash
-# Start PostgreSQL, Grafana, and MLflow
+# Start PostgreSQL and MLflow
 docker-compose up -d
 
 # Verify services are running
@@ -63,7 +63,6 @@ docker-compose ps
 
 **Services will be available at:**
 - **PostgreSQL**: `http://localhost:5432`
-- **Grafana**: `http://localhost:3000` (admin/admin)
 - **MLflow**: `http://localhost:5000`
 
 ### 4. Initialize Database
@@ -105,11 +104,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 - **API Docs**: `http://localhost:8000/docs`
 - **ReDoc**: `http://localhost:8000/redoc`
 
-### Grafana Monitoring
-- **URL**: `http://localhost:3000`
-- **Username**: `admin`
-- **Password**: `admin`
-- **Dashboard**: Walmart Sales Forecasting Dashboard
+
 
 ### MLflow Tracking
 - **URL**: `http://localhost:5000`
@@ -143,7 +138,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 |----------|-------------|---------|
 | `DATABASE_URL` | PostgreSQL connection string | `postgresql://walmart_user:walmart_password@localhost:5432/walmart_forecasting` |
 | `MLFLOW_TRACKING_URI` | MLflow tracking server | `http://localhost:5000` |
-| `GRAFANA_URL` | Grafana dashboard URL | `http://localhost:3000` |
+
 | `API_HOST` | FastAPI host | `0.0.0.0` |
 | `API_PORT` | FastAPI port | `8000` |
 | `DEBUG` | Debug mode | `True` |
@@ -295,7 +290,7 @@ python run.py
 ### Documentation
 - **FastAPI**: https://fastapi.tiangolo.com/
 - **MLflow**: https://mlflow.org/docs/
-- **Grafana**: https://grafana.com/docs/
+
 - **PostgreSQL**: https://www.postgresql.org/docs/
 
 ### Community
@@ -307,7 +302,7 @@ python run.py
 
 1. **Explore the Dashboard**: Visit `http://localhost:8000`
 2. **Train Models**: Run `python models/train_models.py`
-3. **Monitor Performance**: Check Grafana at `http://localhost:3000`
+3. **Monitor Performance**: Check MLflow at `http://localhost:5000`
 4. **Track Experiments**: View MLflow at `http://localhost:5000`
 5. **Customize**: Modify models, add new features, or integrate with your data sources
 

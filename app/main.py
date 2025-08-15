@@ -124,7 +124,7 @@ async def root():
                                     <li><strong>Backend:</strong> Python with FastAPI</li>
                                     <li><strong>ML:</strong> MLflow, Scikit-learn, LightGBM, XGBoost</li>
                                     <li><strong>Data:</strong> Pandas, NumPy, PostgreSQL</li>
-                                    <li><strong>Visualization:</strong> Plotly, Matplotlib, Grafana</li>
+                                    <li><strong>Visualization:</strong> Plotly, Matplotlib</li>
                                 </ul>
                             </div>
                             <div class="summary-item">

@@ -14,24 +14,6 @@ services:
     networks:
       - walmart_network
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: walmart_grafana
-    environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: admin
-      GF_USERS_ALLOW_SIGN_UP: false
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/dashboards:/var/lib/grafana/dashboards
-    networks:
-      - walmart_network
-    depends_on:
-      - postgres
-
   mlflow:
     image: python:3.9-slim
     container_name: walmart_mlflow
@@ -50,7 +32,6 @@ services:
 
 volumes:
   postgres_data:
-  grafana_data:
 
 networks:
   walmart_network:

@@ -10,7 +10,7 @@ if __name__ == "__main__":
     print("🏪 Starting Walmart Sales Forecasting Dashboard...")
     print(f"📊 API will be available at: http://{settings.API_HOST}:{settings.API_PORT}")
     print(f"📈 MLflow tracking at: {settings.MLFLOW_TRACKING_URI}")
-    print(f"📊 Grafana dashboard at: {settings.GRAFANA_URL}")
+
     print("🚀 Starting FastAPI server...")
     
     uvicorn.run(
