@@ -1,0 +1,218 @@
+{
+  "dataset_info": {
+    "name": "Walmart.csv",
+    "rows": 6435,
+    "columns": 8,
+    "memory_mb": 0.355,
+    "date_range": {
+      "start": "2010-02-05",
+      "end": "2012-10-26",
+      "duration_weeks": 143
+    },
+    "stores": 45,
+    "unit_of_observation": "store-week"
+  },
+  "columns": {
+    "Store": {
+      "dtype": "int64",
+      "semantic_type": "ID",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "unique_count": 45,
+      "min_value": 1,
+      "max_value": 45,
+      "data_quality_score": 1.0,
+      "issues": [],
+      "recommended_treatment": "keep_as_is",
+      "notes": "Store identifier, balanced representation (143 weeks each)"
+    },
+    "Date": {
+      "dtype": "object",
+      "semantic_type": "datetime",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "unique_count": 143,
+      "min_value": "05-02-2010",
+      "max_value": "26-10-2012",
+      "data_quality_score": 0.9,
+      "issues": ["needs_datetime_conversion"],
+      "recommended_treatment": "convert_to_datetime",
+      "notes": "Consistent DD-MM-YYYY format, no gaps detected"
+    },
+    "Weekly_Sales": {
+      "dtype": "float64",
+      "semantic_type": "continuous",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "unique_count": 6435,
+      "min_value": 209986.0,
+      "max_value": 6812023.0,
+      "mean": 1046967.0,
+      "median": 1017000.0,
+      "std": 565559.0,
+      "skewness": 1.2,
+      "outlier_rate": 0.028,
+      "data_quality_score": 0.85,
+      "issues": ["high_variance", "right_skewed", "extreme_outliers"],
+      "recommended_treatment": "winsorize_at_99th_percentile",
+      "notes": "Target variable, high variance expected for retail"
+    },
+    "Holiday_Flag": {
+      "dtype": "int64",
+      "semantic_type": "boolean",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "unique_count": 2,
+      "min_value": 0,
+      "max_value": 1,
+      "distribution": {
+        "0": 5667,
+        "1": 768
+      },
+      "data_quality_score": 1.0,
+      "issues": ["needs_boolean_conversion"],
+      "recommended_treatment": "convert_to_boolean",
+      "notes": "Binary holiday indicator, balanced distribution"
+    },
+    "Temperature": {
+      "dtype": "float64",
+      "semantic_type": "continuous",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "unique_count": 6435,
+      "min_value": -2.06,
+      "max_value": 100.14,
+      "mean": 60.66,
+      "median": 62.0,
+      "std": 18.47,
+      "skewness": 0.1,
+      "outlier_rate": 0.012,
+      "data_quality_score": 0.95,
+      "issues": ["seasonal_extremes"],
+      "recommended_treatment": "validate_bounds",
+      "notes": "Fahrenheit scale, seasonal extremes expected"
+    },
+    "Fuel_Price": {
+      "dtype": "float64",
+      "semantic_type": "continuous",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "unique_count": 6435,
+      "min_value": 2.47,
+      "max_value": 4.47,
+      "mean": 3.36,
+      "median": 3.35,
+      "std": 0.46,
+      "skewness": 0.3,
+      "outlier_rate": 0.0,
+      "vif": 18.2,
+      "data_quality_score": 0.7,
+      "issues": ["high_multicollinearity_with_cpi"],
+      "recommended_treatment": "feature_selection_or_engineering",
+      "notes": "Highly correlated with CPI (r=0.95), consider ratio features"
+    },
+    "CPI": {
+      "dtype": "float64",
+      "semantic_type": "continuous",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "unique_count": 6435,
+      "min_value": 126.06,
+      "max_value": 227.23,
+      "mean": 213.27,
+      "median": 212.0,
+      "std": 3.71,
+      "skewness": 0.2,
+      "outlier_rate": 0.0,
+      "vif": 17.8,
+      "data_quality_score": 0.7,
+      "issues": ["high_multicollinearity_with_fuel_price", "upward_trend"],
+      "recommended_treatment": "feature_selection_or_engineering",
+      "notes": "Consumer Price Index, upward trend expected, high VIF"
+    },
+    "Unemployment": {
+      "dtype": "float64",
+      "semantic_type": "continuous",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "unique_count": 6435,
+      "min_value": 6.57,
+      "max_value": 8.9,
+      "mean": 7.87,
+      "median": 7.8,
+      "std": 0.46,
+      "skewness": 0.2,
+      "outlier_rate": 0.0,
+      "data_quality_score": 0.95,
+      "issues": [],
+      "recommended_treatment": "keep_as_is",
+      "notes": "Unemployment rate, stable distribution"
+    }
+  },
+  "data_quality_summary": {
+    "overall_score": 0.89,
+    "missing_data": {
+      "total_missing": 0,
+      "missing_rate": 0.0,
+      "pattern": "MCAR"
+    },
+    "duplicates": {
+      "row_level": 0,
+      "store_date_level": 0,
+      "duplication_rate": 0.0
+    },
+    "outliers": {
+      "total_outliers": 258,
+      "outlier_rate": 0.04,
+      "high_impact_columns": ["Weekly_Sales", "Temperature"]
+    },
+    "multicollinearity": {
+      "high_vif_features": ["Fuel_Price", "CPI"],
+      "correlation_threshold": 0.9,
+      "recommendation": "feature_selection"
+    }
+  },
+  "target_analysis": {
+    "Weekly_Sales": {
+      "distribution": "right_skewed",
+      "baseline_mape": 54.2,
+      "holiday_effect": 0.153,
+      "store_variation": 3.5,
+      "seasonality": "strong",
+      "trend": "slight_upward"
+    }
+  },
+  "recommended_actions": {
+    "immediate": [
+      "convert_date_to_datetime",
+      "convert_holiday_flag_to_boolean",
+      "winsorize_weekly_sales_at_99th_percentile"
+    ],
+    "short_term": [
+      "address_fuel_price_cpi_multicollinearity",
+      "create_temperature_extreme_flags",
+      "engineer_time_features"
+    ],
+    "long_term": [
+      "implement_store_clustering",
+      "create_economic_ratio_features",
+      "develop_hierarchical_models"
+    ]
+  },
+  "modeling_readiness": {
+    "score": 0.85,
+    "strengths": [
+      "clean_data",
+      "no_missing_values",
+      "strong_seasonality",
+      "balanced_panel"
+    ],
+    "challenges": [
+      "store_heterogeneity",
+      "economic_multicollinearity",
+      "high_target_variance"
+    ],
+    "validation_strategy": "time_based_rolling_origin",
+    "feature_engineering_opportunities": "high"
+  }
+}

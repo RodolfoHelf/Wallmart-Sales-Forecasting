@@ -1,0 +1,21 @@
+# Requirements for Walmart Sales Forecasting Visualizations
+# Install with: pip install -r visualization_requirements.txt
+
+# Core data science libraries
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Visualization libraries
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# Scientific computing
+scipy>=1.7.0
+
+# Optional: For enhanced plotting
+plotly>=5.0.0
+kaleido>=0.2.1  # For static plot export
+
+# Optional: For interactive plots in Jupyter
+ipywidgets>=7.6.0
+jupyter>=1.0.0
