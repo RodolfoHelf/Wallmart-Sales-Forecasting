@@ -1,0 +1,49 @@
+{
+  "start_time": "2025-08-15T00:37:07.993617",
+  "end_time": "2025-08-15T00:37:08.135797",
+  "total_duration": null,
+  "stages": {
+    "data_processing": {
+      "status": "success",
+      "duration": 0.07350707054138184,
+      "input_rows": 6435,
+      "output_rows": 6435,
+      "input_columns": 8,
+      "output_columns": 16,
+      "output_file": "pipeline_outputs\\processed_data.csv"
+    },
+    "feature_engineering": {
+      "status": "failed",
+      "duration": 0.0662229061126709,
+      "error": "'WalmartFeatureEngineer' object has no attribute 'select_features'"
+    }
+  },
+  "data_info": {
+    "processed": {
+      "rows": 6435,
+      "columns": 16,
+      "columns_list": [
+        "Store",
+        "Date",
+        "Weekly_Sales",
+        "Holiday_Flag",
+        "Temperature",
+        "Fuel_Price",
+        "CPI",
+        "Unemployment",
+        "year",
+        "month",
+        "quarter",
+        "day_of_week",
+        "is_weekend",
+        "Weekly_Sales_rolling_4",
+        "Weekly_Sales_rolling_12",
+        "Weekly_Sales_growth_rate"
+      ],
+      "date_range": "2010-01-10 00:00:00 to 2012-12-10 00:00:00",
+      "memory_usage_mb": 0.6997318267822266
+    }
+  },
+  "model_results": {},
+  "error": "'WalmartFeatureEngineer' object has no attribute 'select_features'"
+}
