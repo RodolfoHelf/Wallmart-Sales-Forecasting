@@ -20,12 +20,12 @@ def quick_test():
     try:
         # Test 1: Import
         print("1️⃣ Testing import...")
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         print("   ✅ Import successful")
         
         # Test 2: Check CSV file
         print("2️⃣ Checking CSV file...")
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         if csv_path.exists():
             print(f"   ✅ CSV file found: {csv_path}")
             print(f"   📊 File size: {csv_path.stat().st_size / 1024:.1f} KB")

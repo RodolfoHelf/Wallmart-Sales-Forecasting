@@ -1,0 +1,533 @@
+{
+  "start_time": "2025-08-19T02:41:51.543899",
+  "end_time": "2025-08-19T02:42:02.212219",
+  "total_duration": 10.668319463729858,
+  "stages": {
+    "data_processing": {
+      "status": "success",
+      "duration": 0.06951522827148438,
+      "input_rows": 6435,
+      "output_rows": 6435,
+      "input_columns": 8,
+      "output_columns": 16,
+      "output_file": "outputs\\pipeline_outputs\\processed_data.csv"
+    },
+    "feature_engineering": {
+      "status": "success",
+      "duration": 0.9317612648010254,
+      "input_rows": 6435,
+      "output_rows": 6435,
+      "input_columns": 16,
+      "output_columns": 127,
+      "features_added": 111,
+      "output_file": "outputs\\pipeline_outputs\\featured_data.csv"
+    },
+    "model_training": {
+      "status": "success",
+      "duration": 9.659403085708618,
+      "total_data_rows": 6435,
+      "models_trained": [
+        "sarimax",
+        "lightgbm",
+        "xgboost",
+        "prophet",
+        "linear_regression",
+        "ensemble"
+      ],
+      "successful_trainings": 6,
+      "failed_trainings": 0,
+      "results_file": "outputs\\pipeline_outputs\\trained_models\\training_results.json"
+    }
+  },
+  "data_info": {
+    "processed": {
+      "rows": 6435,
+      "columns": 16,
+      "columns_list": [
+        "Store",
+        "Date",
+        "Weekly_Sales",
+        "Holiday_Flag",
+        "Temperature",
+        "Fuel_Price",
+        "CPI",
+        "Unemployment",
+        "year",
+        "month",
+        "quarter",
+        "day_of_week",
+        "is_weekend",
+        "Weekly_Sales_rolling_4",
+        "Weekly_Sales_rolling_12",
+        "Weekly_Sales_growth_rate"
+      ],
+      "date_range": "2010-01-10 00:00:00 to 2012-12-10 00:00:00",
+      "memory_usage_mb": 0.6997318267822266
+    },
+    "featured": {
+      "rows": 6435,
+      "columns": 127,
+      "columns_list": [
+        "Store",
+        "Date",
+        "Weekly_Sales",
+        "Holiday_Flag",
+        "Temperature",
+        "Fuel_Price",
+        "CPI",
+        "Unemployment",
+        "year",
+        "month",
+        "quarter",
+        "day_of_week",
+        "is_weekend",
+        "Weekly_Sales_rolling_4",
+        "Weekly_Sales_rolling_12",
+        "Weekly_Sales_growth_rate",
+        "Date_year",
+        "Date_month",
+        "Date_day_of_week",
+        "Date_week_of_year",
+        "Date_month_sin",
+        "Date_month_cos",
+        "Date_day_of_week_sin",
+        "Date_day_of_week_cos",
+        "Date_is_weekend",
+        "Date_is_month_start",
+        "Date_is_month_end",
+        "Date_is_quarter_start",
+        "Date_is_quarter_end",
+        "Date_days_since_epoch",
+        "Weekly_Sales_lag_1",
+        "Weekly_Sales_lag_2",
+        "Weekly_Sales_lag_3",
+        "Weekly_Sales_lag_7",
+        "Weekly_Sales_lag_14",
+        "Weekly_Sales_lag_30",
+        "Weekly_Sales_lead_1",
+        "Weekly_Sales_lead_2",
+        "Weekly_Sales_lead_3",
+        "Weekly_Sales_rolling_mean_3",
+        "Weekly_Sales_rolling_std_3",
+        "Weekly_Sales_rolling_min_3",
+        "Weekly_Sales_rolling_max_3",
+        "Weekly_Sales_rolling_volatility_3",
+        "Weekly_Sales_rolling_momentum_3",
+        "Weekly_Sales_rolling_mean_7",
+        "Weekly_Sales_rolling_std_7",
+        "Weekly_Sales_rolling_min_7",
+        "Weekly_Sales_rolling_max_7",
+        "Weekly_Sales_rolling_q25_7",
+        "Weekly_Sales_rolling_q75_7",
+        "Weekly_Sales_rolling_volatility_7",
+        "Weekly_Sales_rolling_momentum_7",
+        "Weekly_Sales_rolling_std_14",
+        "Weekly_Sales_rolling_max_14",
+        "Weekly_Sales_rolling_q25_14",
+        "Weekly_Sales_rolling_q75_14",
+        "Weekly_Sales_rolling_volatility_14",
+        "Weekly_Sales_rolling_momentum_14",
+        "Weekly_Sales_rolling_std_30",
+        "Weekly_Sales_rolling_min_30",
+        "Weekly_Sales_rolling_max_30",
+        "Weekly_Sales_rolling_q25_30",
+        "Weekly_Sales_rolling_q75_30",
+        "Weekly_Sales_rolling_volatility_30",
+        "Weekly_Sales_rolling_momentum_30",
+        "Weekly_Sales_expanding_mean",
+        "Weekly_Sales_expanding_std",
+        "Weekly_Sales_expanding_min",
+        "Weekly_Sales_expanding_max",
+        "Weekly_Sales_cumulative_growth",
+        "is_new_year",
+        "is_valentines",
+        "is_easter",
+        "is_memorial_day",
+        "is_independence_day",
+        "is_labor_day",
+        "is_halloween",
+        "is_thanksgiving",
+        "is_christmas",
+        "days_before_christmas",
+        "days_after_christmas",
+        "days_before_thanksgiving",
+        "days_after_thanksgiving",
+        "days_before_independence_day",
+        "days_after_independence_day",
+        "is_spring",
+        "is_summer",
+        "is_fall",
+        "is_winter",
+        "is_back_to_school",
+        "is_holiday_shopping",
+        "Store_encoded",
+        "Store_freq",
+        "Holiday_Flag_target_encoded",
+        "Weekly_Sales_Store_std",
+        "Weekly_Sales_Store_count",
+        "Weekly_Sales_x_Temperature",
+        "Weekly_Sales_div_Temperature",
+        "Weekly_Sales_x_CPI",
+        "Weekly_Sales_div_CPI",
+        "Weekly_Sales_x_Unemployment",
+        "Weekly_Sales_div_Unemployment",
+        "Temperature_x_Fuel_Price",
+        "Temperature_div_Fuel_Price",
+        "Temperature_plus_Fuel_Price",
+        "Temperature_x_CPI",
+        "Temperature_div_CPI",
+        "Temperature_plus_CPI",
+        "Temperature_minus_CPI",
+        "Temperature_x_Unemployment",
+        "Temperature_div_Unemployment",
+        "Fuel_Price_x_CPI",
+        "Fuel_Price_div_CPI",
+        "Fuel_Price_plus_CPI",
+        "Fuel_Price_x_Unemployment",
+        "Fuel_Price_div_Unemployment",
+        "Fuel_Price_minus_Unemployment",
+        "CPI_x_Unemployment",
+        "CPI_div_Unemployment",
+        "Fuel_Price_squared",
+        "Temperature_bin",
+        "Temperature_is_extreme",
+        "Fuel_Price_change",
+        "Fuel_Price_rolling_mean_7",
+        "Fuel_Price_rolling_std_7",
+        "Fuel_Price_bin"
+      ],
+      "features_added": 111,
+      "memory_usage_mb": 6.04581356048584
+    }
+  },
+  "model_results": {
+    "sarimax": {
+      "status": "success",
+      "cv_results": {
+        "folds": [
+          {
+            "fold": 3,
+            "train_size": 2574,
+            "test_size": 1287,
+            "mape": 65.93294376195176,
+            "forecast_value": 0,
+            "model_metrics": {
+              "model_name": "sarimax",
+              "mape_score": 65.93294376195176,
+              "trend_coefficient": 6.3887180816793325,
+              "last_value": 1399662.07,
+              "run_id": "8e637cea9c9147f78f701e537d300aa7"
+            }
+          },
+          {
+            "fold": 4,
+            "train_size": 3861,
+            "test_size": 1287,
+            "mape": 71.07306979551474,
+            "forecast_value": 0,
+            "model_metrics": {
+              "model_name": "sarimax",
+              "mape_score": 71.07306979551474,
+              "trend_coefficient": 65.31860209620794,
+              "last_value": 370230.94,
+              "run_id": "5635b1925ab04fd6b41e921b2d52fce6"
+            }
+          },
+          {
+            "fold": 5,
+            "train_size": 5148,
+            "test_size": 1287,
+            "mape": 64.60337518760004,
+            "forecast_value": 0,
+            "model_metrics": {
+              "model_name": "sarimax",
+              "mape_score": 64.60337518760004,
+              "trend_coefficient": 16.76854774239495,
+              "last_value": 1332261.01,
+              "run_id": "b624971c5ea34d34b5fecff57166e583"
+            }
+          }
+        ],
+        "mean_mape": 67.20312958168886,
+        "std_mape": 2.7897749123559565,
+        "mean_forecast": 0.0,
+        "std_forecast": 0.0,
+        "n_splits": 5,
+        "test_size_ratio": 0.2
+      },
+      "model_type": "sarimax"
+    },
+    "lightgbm": {
+      "status": "success",
+      "cv_results": {
+        "folds": [
+          {
+            "fold": 3,
+            "train_size": 2574,
+            "test_size": 1287,
+            "mape": 55.73535226870203,
+            "forecast_value": 749153.6472,
+            "model_metrics": {
+              "model_name": "lightgbm",
+              "mape_score": 66.03733866783624,
+              "forecast_value": 749153.6472,
+              "feature_count": 8,
+              "run_id": "d6b8954909174a9996e8dc543de1630e"
+            }
+          },
+          {
+            "fold": 4,
+            "train_size": 3861,
+            "test_size": 1287,
+            "mape": 38.11437601769994,
+            "forecast_value": 749153.6472,
+            "model_metrics": {
+              "model_name": "lightgbm",
+              "mape_score": 66.03733866783624,
+              "forecast_value": 749153.6472,
+              "feature_count": 8,
+              "run_id": "183fb7acec9a45dc892876da5b9e620a"
+            }
+          },
+          {
+            "fold": 5,
+            "train_size": 5148,
+            "test_size": 1287,
+            "mape": 59.74734103312082,
+            "forecast_value": 749153.6472,
+            "model_metrics": {
+              "model_name": "lightgbm",
+              "mape_score": 66.03733866783624,
+              "forecast_value": 749153.6472,
+              "feature_count": 8,
+              "run_id": "d9f13e8511c54b9eb0d10c22689734ae"
+            }
+          }
+        ],
+        "mean_mape": 51.1990231065076,
+        "std_mape": 9.396098677658285,
+        "mean_forecast": 749153.6472,
+        "std_forecast": 0.0,
+        "n_splits": 5,
+        "test_size_ratio": 0.2
+      },
+      "model_type": "lightgbm"
+    },
+    "xgboost": {
+      "status": "success",
+      "cv_results": {
+        "folds": [
+          {
+            "fold": 3,
+            "train_size": 2574,
+            "test_size": 1287,
+            "mape": 91.51879680346019,
+            "forecast_value": 1420657.0010499998,
+            "model_metrics": {
+              "model_name": "xgboost",
+              "mape_score": 65.93294376195176,
+              "forecast_value": 1420657.0010499998,
+              "run_id": "285a9a753bac4250a7b613e39ddd6b41"
+            }
+          },
+          {
+            "fold": 4,
+            "train_size": 3861,
+            "test_size": 1287,
+            "mape": 57.1702261626322,
+            "forecast_value": 375784.4041,
+            "model_metrics": {
+              "model_name": "xgboost",
+              "mape_score": 71.07306979551474,
+              "forecast_value": 375784.4041,
+              "run_id": "f6a7541cebc94d5897348516018d688d"
+            }
+          },
+          {
+            "fold": 5,
+            "train_size": 5148,
+            "test_size": 1287,
+            "mape": 135.7244603851904,
+            "forecast_value": 1352244.9251499998,
+            "model_metrics": {
+              "model_name": "xgboost",
+              "mape_score": 64.60337518760004,
+              "forecast_value": 1352244.9251499998,
+              "run_id": "6ff8c88783624a2a9c7ba3e499a33f0d"
+            }
+          }
+        ],
+        "mean_mape": 94.80449445042761,
+        "std_mape": 32.15368081929449,
+        "mean_forecast": 1049562.1101,
+        "std_forecast": 477250.70341083384,
+        "n_splits": 5,
+        "test_size_ratio": 0.2
+      },
+      "model_type": "xgboost"
+    },
+    "prophet": {
+      "status": "success",
+      "cv_results": {
+        "folds": [
+          {
+            "fold": 3,
+            "train_size": 2574,
+            "test_size": 1287,
+            "mape": 92.52980506214578,
+            "forecast_value": 1434653.62175,
+            "model_metrics": {
+              "model_name": "prophet",
+              "mape_score": 65.93294376195176,
+              "forecast_value": 1434653.62175,
+              "run_id": "3a7390e41bb8416f864be1cc41be6046"
+            }
+          },
+          {
+            "fold": 4,
+            "train_size": 3861,
+            "test_size": 1287,
+            "mape": 56.75147622221955,
+            "forecast_value": 379486.71349999995,
+            "model_metrics": {
+              "model_name": "prophet",
+              "mape_score": 71.07306979551474,
+              "forecast_value": 379486.71349999995,
+              "run_id": "c165c79270024e558dcad6cce58e269d"
+            }
+          },
+          {
+            "fold": 5,
+            "train_size": 5148,
+            "test_size": 1287,
+            "mape": 137.84816722153738,
+            "forecast_value": 1365567.53525,
+            "model_metrics": {
+              "model_name": "prophet",
+              "mape_score": 64.60337518760004,
+              "forecast_value": 1365567.53525,
+              "run_id": "74f9f9db5fd94f93b2fb02ec26890161"
+            }
+          }
+        ],
+        "mean_mape": 95.70981616863423,
+        "std_mape": 33.18385828218043,
+        "mean_forecast": 1059902.6235,
+        "std_forecast": 481952.6807843397,
+        "n_splits": 5,
+        "test_size_ratio": 0.2
+      },
+      "model_type": "prophet"
+    },
+    "linear_regression": {
+      "status": "success",
+      "cv_results": {
+        "folds": [
+          {
+            "fold": 3,
+            "train_size": 2574,
+            "test_size": 1287,
+            "mape": 92.02254515536757,
+            "forecast_value": 1427655.3114,
+            "model_metrics": {
+              "model_name": "linear_regression",
+              "mape_score": 65.93294376195176,
+              "forecast_value": 1427655.3114,
+              "run_id": "e2f3bd337b2041308adbb1edbee41b56"
+            }
+          },
+          {
+            "fold": 4,
+            "train_size": 3861,
+            "test_size": 1287,
+            "mape": 56.9603614961599,
+            "forecast_value": 377635.5588,
+            "model_metrics": {
+              "model_name": "linear_regression",
+              "mape_score": 71.07306979551474,
+              "forecast_value": 377635.5588,
+              "run_id": "9b6c9e606009431fa87f32f32f77866c"
+            }
+          },
+          {
+            "fold": 5,
+            "train_size": 5148,
+            "test_size": 1287,
+            "mape": 136.7846614041603,
+            "forecast_value": 1358906.2302,
+            "model_metrics": {
+              "model_name": "linear_regression",
+              "mape_score": 64.60337518760004,
+              "forecast_value": 1358906.2302,
+              "run_id": "de893ef120cf4ce49f7d5dd800fcff59"
+            }
+          }
+        ],
+        "mean_mape": 95.2558560185626,
+        "std_mape": 32.66823572732529,
+        "mean_forecast": 1054732.3668,
+        "std_forecast": 479601.69209758687,
+        "n_splits": 5,
+        "test_size_ratio": 0.2
+      },
+      "model_type": "linear_regression"
+    },
+    "ensemble": {
+      "status": "success",
+      "cv_results": {
+        "folds": [
+          {
+            "fold": 3,
+            "train_size": 2574,
+            "test_size": 1287,
+            "mape": 89.81643535480065,
+            "forecast_value": 1396756.9960756244,
+            "model_metrics": {
+              "model_name": "ensemble",
+              "mape_score": 65.93294376195176,
+              "forecast_value": 1396756.9960756244,
+              "num_models": 4,
+              "run_id": "60b872f45dbf4fe08c930a23aa0983b1"
+            }
+          },
+          {
+            "fold": 4,
+            "train_size": 3861,
+            "test_size": 1287,
+            "mape": 58.81778443199798,
+            "forecast_value": 361303.33162539307,
+            "model_metrics": {
+              "model_name": "ensemble",
+              "mape_score": 71.07306979551474,
+              "forecast_value": 361303.33162539307,
+              "num_models": 4,
+              "run_id": "af97217fa0804e908c42d7765b7795ef"
+            }
+          },
+          {
+            "fold": 5,
+            "train_size": 5148,
+            "test_size": 1287,
+            "mape": 134.98470476078273,
+            "forecast_value": 1347583.446016931,
+            "model_metrics": {
+              "model_name": "ensemble",
+              "mape_score": 64.60337518760004,
+              "forecast_value": 1347583.446016931,
+              "num_models": 4,
+              "run_id": "394aa421fd0c44ffacd8c1a14e4ca9ce"
+            }
+          }
+        ],
+        "mean_mape": 94.53964151586045,
+        "std_mape": 31.27385964265541,
+        "mean_forecast": 1035214.591239316,
+        "std_forecast": 476949.8917651358,
+        "n_splits": 5,
+        "test_size_ratio": 0.2
+      },
+      "model_type": "ensemble"
+    }
+  },
+  "mlflow_status": "enabled"
+}

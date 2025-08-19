@@ -20,7 +20,7 @@ def test_csv_structure():
     try:
         # Test 1: Check if Walmart.csv exists
         print("1️⃣ Checking Walmart.csv...")
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         
         if not csv_path.exists():
             print("   ❌ Walmart.csv not found!")
@@ -51,7 +51,7 @@ def test_csv_structure():
         # Test 4: Test data processor import
         print("4️⃣ Testing data processor import...")
         try:
-            from data.data_processor import WalmartDataProcessor
+            from data_manipulation.data_processor import WalmartDataProcessor
             print("   ✅ Data processor imported successfully")
         except Exception as e:
             print(f"   ❌ Data processor import failed: {e}")
@@ -60,7 +60,7 @@ def test_csv_structure():
         # Test 5: Test feature engineering import
         print("5️⃣ Testing feature engineering import...")
         try:
-            from data.feature_engineering import WalmartFeatureEngineer
+            from data_manipulation.feature_engineering import WalmartFeatureEngineer
             print("   ✅ Feature engineering imported successfully")
         except Exception as e:
             print(f"   ❌ Feature engineering import failed: {e}")

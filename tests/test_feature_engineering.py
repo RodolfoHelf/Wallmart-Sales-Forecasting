@@ -21,13 +21,13 @@ def test_feature_engineering():
     try:
         # Test 1: Import the modules
         print("1️⃣ Testing imports...")
-        from data.feature_engineering import WalmartFeatureEngineer
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.feature_engineering import WalmartFeatureEngineer
+        from data_manipulation.data_processor import WalmartDataProcessor
         print("   ✅ Feature engineering and data processor modules imported successfully")
         
         # Test 2: Load and process data using data processor
         print("2️⃣ Loading and processing data with data processor...")
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         
         if not csv_path.exists():
             print("   ❌ Walmart.csv not found. Creating sample data...")
@@ -59,7 +59,7 @@ def test_feature_engineering():
                 print(f"   📊 Using all {len(sample_data)} records")
             
             # Save the sample for consistent testing
-            sample_csv_path = project_root / "data" / "Walmart_sample.csv"
+            sample_csv_path = project_root / "data_manipulation" / "Walmart_sample.csv"
             sample_data.to_csv(sample_csv_path, index=False)
             print(f"   💾 Saved sample to {sample_csv_path.name}")
             csv_path = sample_csv_path  # Use the sample for processing
@@ -187,8 +187,8 @@ def quick_demo():
     print("=" * 55)
     
     try:
-        from data.feature_engineering import WalmartFeatureEngineer
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.feature_engineering import WalmartFeatureEngineer
+        from data_manipulation.data_processor import WalmartDataProcessor
         
         # Create simple sample data with proper column names
         dates = pd.date_range('2023-01-01', periods=50, freq='D')

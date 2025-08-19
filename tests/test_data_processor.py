@@ -25,7 +25,7 @@ def test_csv_file_exists():
     """Test 1: Check if Walmart.csv exists and is readable"""
     print("🔍 Test 1: Checking if Walmart.csv exists...")
     
-    csv_path = project_root / "data" / "Walmart.csv"
+    csv_path = project_root / "data_manipulation" / "Walmart.csv"
     
     if not csv_path.exists():
         print("❌ FAILED: Walmart.csv not found!")
@@ -49,7 +49,7 @@ def test_data_processor_import():
     print("\n🔍 Test 2: Testing data processor import...")
     
     try:
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         print("✅ PASSED: WalmartDataProcessor imported successfully")
         return True
     except Exception as e:
@@ -61,9 +61,9 @@ def test_data_processor_initialization():
     print("\n🔍 Test 3: Testing data processor initialization...")
     
     try:
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         processor = WalmartDataProcessor(str(csv_path))
         
         print("✅ PASSED: Data processor initialized successfully")
@@ -79,9 +79,9 @@ def test_csv_loading():
     print("\n🔍 Test 4: Testing CSV loading...")
     
     try:
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         processor = WalmartDataProcessor(str(csv_path))
         
         # Load the data
@@ -103,9 +103,9 @@ def test_data_cleaning():
     print("\n🔍 Test 5: Testing data cleaning...")
     
     try:
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         processor = WalmartDataProcessor(str(csv_path))
         
         # Load and clean data
@@ -128,9 +128,9 @@ def test_data_analysis():
     print("\n🔍 Test 6: Testing data analysis...")
     
     try:
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         processor = WalmartDataProcessor(str(csv_path))
         
         # Load, clean, and analyze data
@@ -158,111 +158,198 @@ def test_database_preparation():
     print("\n🔍 Test 7: Testing database preparation...")
     
     try:
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         processor = WalmartDataProcessor(str(csv_path))
         
         # Load, clean, and prepare for database
         processor.load_csv_data()
         processor.clean_data()
-        records = processor.prepare_for_database()
+        db_data = processor.prepare_for_database()
         
         print("✅ PASSED: Database preparation completed successfully")
-        print(f"   📊 Records prepared: {len(records)}")
-        if records:
-            print(f"   🗂️  Sample record keys: {list(records[0].keys())}")
-            print(f"   🔍 Sample record: {records[0]}")
+        print(f"   📊 Database data shape: {db_data.shape}")
+        print(f"   🔍 Database data types:")
+        print(db_data.dtypes.to_string())
         
         return True
     except Exception as e:
         print(f"❌ FAILED: Could not prepare data for database: {e}")
         return False
 
-def test_sample_data_processing():
-    """Test 8: Test processing with a small sample"""
-    print("\n🔍 Test 8: Testing sample data processing...")
+def test_data_export():
+    """Test 8: Test data export functionality"""
+    print("\n🔍 Test 8: Testing data export...")
     
     try:
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         processor = WalmartDataProcessor(str(csv_path))
         
-        # Load data
-        data = processor.load_csv_data()
+        # Load and clean data
+        processor.load_csv_data()
+        processor.clean_data()
         
-        # Take a small sample for testing
-        sample_data = data.head(100).copy()
-        processor.data = sample_data
+        # Export to different formats
+        export_path = project_root / "tests" / "test_export"
+        export_path.mkdir(exist_ok=True)
         
-        # Test cleaning on sample
-        clean_sample = processor.clean_data()
-        print(f"✅ PASSED: Sample cleaning completed")
-        print(f"   📊 Sample size: {len(clean_sample)}")
+        # Export to CSV
+        csv_export = export_path / "test_export.csv"
+        processor.export_data(str(csv_export), format='csv')
         
-        # Test analysis on sample
-        sample_analysis = processor.analyze_data()
-        print(f"✅ PASSED: Sample analysis completed")
-        print(f"   📊 Sample stats: {sample_analysis['basic_stats']}")
+        # Export to JSON
+        json_export = export_path / "test_export.json"
+        processor.export_data(str(json_export), format='json')
         
-        # Test database preparation on sample
-        sample_records = processor.prepare_for_database()
-        print(f"✅ PASSED: Sample database preparation completed")
-        print(f"   📊 Sample records: {len(sample_records)}")
+        # Export to Excel
+        excel_export = export_path / "test_export.xlsx"
+        processor.export_data(str(excel_export), format='excel')
+        
+        print("✅ PASSED: Data export completed successfully")
+        print(f"   📁 CSV export: {csv_export.exists()}")
+        print(f"   📁 JSON export: {json_export.exists()}")
+        print(f"   📁 Excel export: {excel_export.exists()}")
+        
+        # Clean up test files
+        for file_path in [csv_export, json_export, excel_export]:
+            if file_path.exists():
+                file_path.unlink()
         
         return True
     except Exception as e:
-        print(f"❌ FAILED: Sample processing failed: {e}")
+        print(f"❌ FAILED: Could not export data: {e}")
         return False
 
-def run_all_tests():
-    """Run all tests and provide summary"""
-    print("🚀 Starting Walmart Data Processor Tests...")
+def test_error_handling():
+    """Test 9: Test error handling"""
+    print("\n🔍 Test 9: Testing error handling...")
+    
+    try:
+        from data_manipulation.data_processor import WalmartDataProcessor
+        
+        # Test with non-existent file
+        try:
+            processor = WalmartDataProcessor("non_existent_file.csv")
+            processor.load_csv_data()
+            print("❌ FAILED: Should have raised an error for non-existent file")
+            return False
+        except FileNotFoundError:
+            print("✅ PASSED: Correctly handled non-existent file")
+        
+        # Test with invalid data
+        try:
+            # Create a temporary file with invalid data
+            temp_file = project_root / "tests" / "temp_invalid.csv"
+            temp_file.parent.mkdir(exist_ok=True)
+            
+            with open(temp_file, 'w') as f:
+                f.write("invalid,csv,data\n")
+                f.write("1,2,3\n")
+                f.write("a,b,c\n")
+            
+            processor = WalmartDataProcessor(str(temp_file))
+            processor.load_csv_data()
+            
+            # Clean up
+            temp_file.unlink()
+            
+            print("✅ PASSED: Handled invalid data gracefully")
+            
+        except Exception as e:
+            print(f"✅ PASSED: Correctly handled invalid data: {e}")
+        
+        return True
+    except Exception as e:
+        print(f"❌ FAILED: Error handling test failed: {e}")
+        return False
+
+def test_performance():
+    """Test 10: Test performance with large datasets"""
+    print("\n🔍 Test 10: Testing performance...")
+    
+    try:
+        from data_manipulation.data_processor import WalmartDataProcessor
+        
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
+        processor = WalmartDataProcessor(str(csv_path))
+        
+        import time
+        
+        # Measure loading time
+        start_time = time.time()
+        processor.load_csv_data()
+        load_time = time.time() - start_time
+        
+        # Measure cleaning time
+        start_time = time.time()
+        processor.clean_data()
+        clean_time = time.time() - start_time
+        
+        # Measure analysis time
+        start_time = time.time()
+        processor.analyze_data()
+        analysis_time = time.time() - start_time
+        
+        print("✅ PASSED: Performance test completed")
+        print(f"   ⏱️  Load time: {load_time:.3f}s")
+        print(f"   ⏱️  Clean time: {clean_time:.3f}s")
+        print(f"   ⏱️  Analysis time: {analysis_time:.3f}s")
+        print(f"   ⏱️  Total time: {load_time + clean_time + analysis_time:.3f}s")
+        
+        return True
+    except Exception as e:
+        print(f"❌ FAILED: Performance test failed: {e}")
+        return False
+
+def main():
+    """Run all tests"""
+    print("🧪 WALMART DATA PROCESSOR COMPREHENSIVE TEST SUITE")
     print("=" * 60)
     
     tests = [
-        ("CSV File Exists", test_csv_file_exists),
-        ("Data Processor Import", test_data_processor_import),
-        ("Data Processor Initialization", test_data_processor_initialization),
-        ("CSV Loading", test_csv_loading),
-        ("Data Cleaning", test_data_cleaning),
-        ("Data Analysis", test_data_analysis),
-        ("Database Preparation", test_database_preparation),
-        ("Sample Data Processing", test_sample_data_processing)
+        test_csv_file_exists,
+        test_data_processor_import,
+        test_data_processor_initialization,
+        test_csv_loading,
+        test_data_cleaning,
+        test_data_analysis,
+        test_database_preparation,
+        test_data_export,
+        test_error_handling,
+        test_performance
     ]
     
-    results = []
+    passed = 0
+    failed = 0
     
-    for test_name, test_func in tests:
+    for test in tests:
         try:
-            result = test_func()
-            results.append((test_name, result))
+            if test():
+                passed += 1
+            else:
+                failed += 1
         except Exception as e:
-            print(f"❌ ERROR in {test_name}: {e}")
-            results.append((test_name, False))
+            print(f"❌ Test {test.__name__} crashed: {e}")
+            failed += 1
     
-    # Print summary
+    # Final summary
     print("\n" + "=" * 60)
-    print("📊 TEST SUMMARY")
+    print("📊 TEST RESULTS SUMMARY")
     print("=" * 60)
+    print(f"✅ PASSED: {passed}")
+    print(f"❌ FAILED: {failed}")
+    print(f"📈 SUCCESS RATE: {passed/(passed+failed)*100:.1f}%")
     
-    passed = sum(1 for _, result in results if result)
-    total = len(results)
-    
-    for test_name, result in results:
-        status = "✅ PASSED" if result else "❌ FAILED"
-        print(f"{status}: {test_name}")
-    
-    print(f"\n🎯 Overall Result: {passed}/{total} tests passed")
-    
-    if passed == total:
-        print("🎉 All tests passed! Data processor is working correctly.")
+    if failed == 0:
+        print("\n🎉 ALL TESTS PASSED! Data processor is working correctly.")
+        return True
     else:
-        print("⚠️  Some tests failed. Check the output above for details.")
-    
-    return passed == total
+        print(f"\n⚠️  {failed} test(s) failed. Check the output above for details.")
+        return False
 
 if __name__ == "__main__":
-    success = run_all_tests()
+    success = main()
     sys.exit(0 if success else 1)

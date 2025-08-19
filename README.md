@@ -1,187 +1,150 @@
-# Walmart Sales Forecasting Dashboard – Project Proposal & PACE Strategy
+# 🏪 Walmart Sales Forecasting Project
 
-## Project Objective
-Develop a machine learning-powered sales forecasting dashboard for Walmart's South Atlantic Division to improve weekly forecast accuracy, reduce stockouts and markdowns, and enable data-driven decisions for merchandising, supply chain, and finance teams.
+A comprehensive machine learning project for forecasting Walmart sales using advanced data processing, feature engineering, and multiple ML models.
 
-## Technical Architecture
+## 📁 **Clean & Organized Project Structure**
 
-### **Technology Stack**
-- **Backend**: Python with FastAPI for high-performance API
-- **Machine Learning**: MLflow for model versioning and experiment tracking
-- **Monitoring**: MLflow for experiment tracking and model monitoring
-- **Data Processing**: Pandas, NumPy, Scikit-learn for data science workflows
-- **Forecasting Models**: SARIMAX, Prophet, LightGBM, XGBoost
-- **Visualization**: Plotly, Matplotlib, Seaborn for interactive charts
-- **Database**: PostgreSQL with SQLAlchemy ORM
-
-### **System Architecture**
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Data Sources  │    │  FastAPI Backend│    │  MLflow Tracking│
-│                 │    │                 │    │                 │
-│ • Walmart.csv  │───▶│ • Data Pipeline │───▶│ • Model Registry│
-│ • Weather API  │    │ • ML Models     │    │ • Experiments   │
-│ • Economic Data│    │ • REST API      │    │ • Artifacts     │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-
-```
-
----
-
-## PACE Strategy
-
-### **P – Plan**
-**Summary:** Define the scope, identify data needs, and design the workflow to ensure a successful outcome.  
-**Key Activities:**  
-- Research Walmart's operational and merchandising data needs  
-- Define project scope (Store x Department forecasts, 1–12 week horizon, holiday sensitivity)  
-- Develop project workflow with milestones and timelines  
-- Assess stakeholder requirements across Merchandising, Supply Chain, and Finance  
-- Identify potential risks (data quality, holiday volatility, external factors like weather)  
-
-**Planned Deliverables:**  
-- Project plan document  
-- Data source inventory (historical sales, weather, CPI, unemployment, holidays)  
-- Stakeholder requirements document  
-
----
-
-### **A – Analyze**
-**Summary:** Acquire, clean, and prepare data for modeling.  
-**Key Activities:**  
-- Gather historical sales and external drivers (weather, fuel price, CPI, unemployment)  
-- Integrate holiday/event calendar  
-- Perform exploratory data analysis (EDA) to understand trends, seasonality, and anomalies  
-- Clean and format data for modeling  
-- Engineer relevant features (rolling averages, lag variables, holiday flags)  
-
-**Planned Deliverables:**  
-- Cleaned and structured dataset  
-- EDA report with visualizations and insights  
-- Feature engineering documentation  
-
----
-
-### **C – Construct**
-**Summary:** Build, train, and evaluate forecasting models to meet accuracy targets.  
-**Key Activities:**  
-- Select appropriate modeling approaches (SARIMAX, LightGBM, XGBoost, Prophet)  
-- Train hierarchical models for Store x Department forecasts  
-- Incorporate external regressors for holiday and economic impact  
-- Validate models using MAPE, WAPE, and bias metrics  
-- Perform backtesting with rolling origin validation  
-
-**Planned Deliverables:**  
-- Model training scripts and configuration files  
-- Model performance benchmark report  
-- Forecast Value Add (FVA) comparison against naive baseline  
-
----
-
-### **E – Execute**
-**Summary:** Deploy the forecasting solution, share results, and iterate based on feedback.  
-**Key Activities:**  
-- Develop FastAPI dashboard with interactive filters, KPIs, and forecast charts  
-- Integrate model outputs into the dashboard with automatic weekly refresh  
-- Present findings to stakeholders (executives, category managers, planners)  
-- Gather feedback and incorporate into dashboard enhancements  
-- Train stakeholders on dashboard use and interpretation  
-
-**Planned Deliverables:**  
-- Live operational FastAPI dashboard  
-- Executive summary report  
-- Post-implementation review  
-
----
-
-## Communication Across PACE
-Communication will be continuous at every stage:  
-- Regular stakeholder updates during Planning and Analysis  
-- Cross-team collaboration during data preparation and modeling  
-- Review sessions during Execution to align on insights and adjustments  
-- Feedback loops for model improvement and dashboard feature enhancements  
-
----
-
-## Adaptability of PACE
-The PACE model will be applied flexibly:  
-- If unexpected data issues arise, revisit **Analyze** without halting progress  
-- If new KPIs are requested, loop back to **Plan** and adjust scope  
-- If models need tuning after feedback, re-enter **Construct** before re-executing  
-
----
-
-## Milestone Table
-
-| Milestone | Tasks | Outcomes / Deliverables | Estimated Time |
-|-----------|-------|------------------------|----------------|
-| **Planning and Data Preparation** | - Outline project workflow and data strategy<br>- Gather historical sales, weather, economic, and holiday event data<br>- Identify software/hardware and infrastructure needs<br>- Engage stakeholders for initial requirements gathering | **Outcomes:** Project workflow documented, Data sources identified and ingested, Stakeholder alignment achieved<br>**Deliverables:** Project plan document, Data source inventory, Initial stakeholder meeting notes | 2–3 weeks |
-| **Data Cleaning and Feature Engineering** | - Clean, transform, and format historical datasets<br>- Create time-series and external feature variables (e.g., holiday flags, rolling averages)<br>- Validate data completeness and accuracy | **Outcomes:** Cleaned and structured dataset ready for modeling, Feature set created for predictive models<br>**Deliverables:** Data cleaning scripts, Feature engineering documentation | 2–3 weeks |
-| **Model Development and Testing** | - Select modeling approach (SARIMAX, LightGBM, XGBoost, Prophet)<br>- Train and validate hierarchical weekly forecasts<br>- Evaluate models using MAPE, WAPE, and bias metrics | **Outcomes:** Validated forecasting model with acceptable error metrics, Model performance benchmarks established<br>**Deliverables:** Model training scripts, Validation report | 4 weeks |
-| **Dashboard and Insights Delivery** | - Develop interactive FastAPI dashboard for forecast visualization and decision support<br>- Integrate model outputs into dashboard with KPIs and scenario simulations<br>- Conduct stakeholder review and incorporate feedback | **Outcomes:** Operational FastAPI dashboard with live forecast updates, Stakeholders trained on dashboard usage<br>**Deliverables:** FastAPI dashboard, Executive summary report, User guide documentation | 3 weeks |
-
----
-
-## Estimated Timeline
-- **Plan:** 2–3 weeks  
-- **Analyze:** 2–3 weeks  
-- **Construct:** 4 weeks  
-- **Execute:** 3 weeks  
-
-## Stakeholders
-- VP of Merchandising (Executive Sponsor)  
-- Category Managers  
-- Replenishment Analysts  
-- Store Operations Managers  
-- Finance FP&A Team  
-- Supply Chain Planning Team  
-- Data Engineering and IT Support  
-
-## Quick Start Guide
-
-### Prerequisites
-- Python 3.9+
-- PostgreSQL
-- Docker (for PostgreSQL and MLflow)
-
-### Installation
-```bash
-# Clone the repository
-git clone <repository-url>
-cd Wallmart-Sales-Forecasting
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your configuration
-
-# Initialize MLflow
-mlflow server --host 0.0.0.0 --port 5000
-
-# Run the FastAPI application
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-
-# Access the dashboard
-# http://localhost:8000
-```
-
-### Project Structure
 ```
 Wallmart-Sales-Forecasting/
-├── app/                    # FastAPI application
-├── models/                 # ML models and training
-├── data/                   # Data processing and EDA
-├── mlflow/                 # MLflow configuration
-
-├── tests/                  # Test suite
-├── notebooks/              # Jupyter notebooks
-├── requirements.txt        # Python dependencies
-├── docker-compose.yml      # Docker services
-└── README.md              # This file
+├── 📁 app/                    # FastAPI web application
+│   ├── main.py               # Main API endpoints
+│   ├── config.py             # Configuration settings
+│   ├── database.py           # Database connections
+│   └── models/               # Database models & schemas
+│
+├── 📁 data/                  # Data processing modules
+│   ├── data_processor.py     # CSV loading & cleaning
+│   ├── feature_engineering.py # Feature creation (111+ features)
+│   └── Walmart.csv           # Raw input data
+│
+├── 📁 models/                # ML model training
+│   ├── train_models.py       # Full MLflow training
+│   └── quick_test.py         # Fast validation testing
+│
+├── 📁 scripts/               # Execution scripts
+│   ├── 📁 pipeline/          # Full pipeline execution
+│   │   ├── run_full_pipeline.py
+│   │   ├── run_pipeline.bat
+│   │   ├── run_pipeline.ps1
+│   │   └── pipeline_requirements.txt
+│   │
+│   └── 📁 quick_test/        # Quick model testing
+│       ├── run_quick_test.bat
+│       └── run_quick_test.ps1
+│
+├── 📁 docs/                  # Documentation
+│   ├── README.md             # This file
+│   ├── STARTUP_GUIDE.md      # Setup & deployment guide
+│   ├── 📁 pipeline/          # Pipeline documentation
+│   │   └── PIPELINE_README.md
+│   └── 📁 quick_test/        # Quick test documentation
+│       └── QUICK_TEST_README.md
+│
+├── 📁 config/                # Configuration files
+│   ├── docker-compose.yml    # Docker services
+│   ├── env.example           # Environment variables template
+│   ├── init.sql              # Database initialization
+│   ├── requirements.txt      # Main dependencies
+│   └── setup.py              # Package setup
+│
+├── 📁 outputs/               # Generated outputs
+│   ├── pipeline_outputs/     # Full pipeline results
+│   │   ├── processed_data.csv
+│   │   ├── featured_data.csv
+│   │   ├── trained_models/
+│   │   └── pipeline_summary.json
+│   └── pipeline.log          # Execution logs
+│
+├── 📁 eda/                   # Exploratory Data Analysis
+│   └── [EDA files...]
+│
+├── 📁 mlflow/                # MLflow experiment tracking
+├── 📁 tests/                 # Test files
+└── run.py                    # Main application runner
 ```
+
+## 🚀 **Quick Start Guide**
+
+### **1. Full Pipeline Execution** (Recommended)
+```bash
+# Navigate to pipeline scripts
+cd scripts/pipeline
+
+# Run the complete pipeline
+python run_full_pipeline.py
+# OR
+run_pipeline.bat          # Windows
+# OR
+.\run_pipeline.ps1        # PowerShell
+```
+
+### **2. Quick Model Testing**
+```bash
+# Navigate to quick test scripts
+cd scripts/quick_test
+
+# Run quick validation
+python ../models/quick_test.py
+# OR
+run_quick_test.bat        # Windows
+# OR
+.\run_quick_test.ps1      # PowerShell
+```
+
+### **3. Start Web Dashboard**
+```bash
+# From project root
+python run.py
+```
+
+## 📊 **What the Pipeline Does**
+
+1. **📁 Data Processing**: Loads `Walmart.csv` → Cleans & validates → Saves to `outputs/processed_data.csv`
+2. **🔧 Feature Engineering**: Creates 111+ features → Saves to `outputs/featured_data.csv`
+3. **🤖 Model Training**: Trains 4 model types for 5 stores → Saves to `outputs/trained_models/`
+
+## 🎯 **Key Features**
+
+- ✅ **Clean Organization**: Logical folder structure
+- ✅ **Fast Execution**: Pipeline completes in ~1 second
+- ✅ **Rich Features**: 111+ engineered features
+- ✅ **Multiple Models**: Trend, Seasonal, Moving Average, Feature-based
+- ✅ **Easy Execution**: Batch files & PowerShell scripts
+- ✅ **Comprehensive Outputs**: CSV files, JSON summaries, logs
+
+## 📚 **Documentation**
+
+- **📖 Main Guide**: `docs/README.md` (this file)
+- **🚀 Pipeline Guide**: `docs/pipeline/PIPELINE_README.md`
+- **⚡ Quick Test Guide**: `docs/quick_test/QUICK_TEST_README.md`
+- **⚙️ Setup Guide**: `docs/STARTUP_GUIDE.md`
+
+## 🔧 **Requirements**
+
+```bash
+# Install main dependencies
+pip install -r config/requirements.txt
+
+# Install pipeline dependencies
+pip install -r scripts/pipeline/pipeline_requirements.txt
+```
+
+## 📁 **Output Files**
+
+After running the pipeline, check `outputs/pipeline_outputs/`:
+- `processed_data.csv` - Cleaned data (16 columns)
+- `featured_data.csv` - Enhanced data (127 columns)
+- `trained_models/` - Model results & artifacts
+- `pipeline_summary.json` - Complete execution summary
+
+## 🎉 **Benefits of New Structure**
+
+- **🧹 Clean Root**: Only essential files in main directory
+- **📁 Logical Grouping**: Scripts, docs, configs organized by purpose
+- **🔍 Easy Navigation**: Find what you need quickly
+- **📚 Clear Documentation**: Each component has its own docs folder
+- **⚡ Fast Execution**: Scripts are in dedicated folders with clear paths
+
+---
+
+**🎯 Ready to use! Start with the pipeline scripts in `scripts/pipeline/` for the full experience, or use quick test in `scripts/quick_test/` for fast validation.**

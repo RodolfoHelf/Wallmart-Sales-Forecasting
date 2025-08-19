@@ -15,5 +15,5 @@ python run_full_pipeline.py
 
 echo.
 echo ✅ Pipeline execution completed!
-echo 📁 Check the 'pipeline_outputs' directory for results
+echo 📁 Check the '../../outputs/pipeline_outputs' directory for results
 pause

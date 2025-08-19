@@ -20,12 +20,12 @@ def test_date_conversion():
     try:
         # Test 1: Import the module
         print("1️⃣ Testing import...")
-        from data.data_processor import WalmartDataProcessor
+        from data_manipulation.data_processor import WalmartDataProcessor
         print("   ✅ Data processor module imported successfully")
         
         # Test 2: Check if Walmart.csv exists
         print("2️⃣ Checking data file...")
-        csv_path = project_root / "data" / "Walmart.csv"
+        csv_path = project_root / "data_manipulation" / "Walmart.csv"
         
         if not csv_path.exists():
             print("   ❌ Walmart.csv not found. Creating sample data...")

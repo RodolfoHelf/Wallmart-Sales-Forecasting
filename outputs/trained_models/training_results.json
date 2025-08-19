@@ -1,0 +1,67 @@
+{
+  "store_2": {
+    "status": "success",
+    "data_rows": 143,
+    "models_trained": [
+      "sarimax",
+      "lightgbm",
+      "xgboost",
+      "prophet",
+      "ensemble"
+    ],
+    "store_id": "2",
+    "date_range": "2010-01-10 00:00:00 to 2012-12-10 00:00:00"
+  },
+  "store_9": {
+    "status": "success",
+    "data_rows": 143,
+    "models_trained": [
+      "sarimax",
+      "lightgbm",
+      "xgboost",
+      "prophet",
+      "ensemble"
+    ],
+    "store_id": "9",
+    "date_range": "2010-01-10 00:00:00 to 2012-12-10 00:00:00"
+  },
+  "store_22": {
+    "status": "success",
+    "data_rows": 143,
+    "models_trained": [
+      "sarimax",
+      "lightgbm",
+      "xgboost",
+      "prophet",
+      "ensemble"
+    ],
+    "store_id": "22",
+    "date_range": "2010-01-10 00:00:00 to 2012-12-10 00:00:00"
+  },
+  "store_14": {
+    "status": "success",
+    "data_rows": 143,
+    "models_trained": [
+      "sarimax",
+      "lightgbm",
+      "xgboost",
+      "prophet",
+      "ensemble"
+    ],
+    "store_id": "14",
+    "date_range": "2010-01-10 00:00:00 to 2012-12-10 00:00:00"
+  },
+  "store_30": {
+    "status": "success",
+    "data_rows": 143,
+    "models_trained": [
+      "sarimax",
+      "lightgbm",
+      "xgboost",
+      "prophet",
+      "ensemble"
+    ],
+    "store_id": "30",
+    "date_range": "2010-01-10 00:00:00 to 2012-12-10 00:00:00"
+  }
+}

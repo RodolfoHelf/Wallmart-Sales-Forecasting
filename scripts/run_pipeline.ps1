@@ -17,5 +17,5 @@ python run_full_pipeline.py
 
 Write-Host ""
 Write-Host "✅ Pipeline execution completed!" -ForegroundColor Green
-Write-Host "📁 Check the 'pipeline_outputs' directory for results" -ForegroundColor Cyan
+Write-Host "📁 Check the '../../outputs/pipeline_outputs' directory for results" -ForegroundColor Cyan
 Read-Host "Press Enter to continue"
