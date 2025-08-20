@@ -126,3 +126,4 @@ When MLflow is not available, the pipeline will:
    data = processor.load_csv_data()
    print(f"Loaded {len(data)} rows")
    ```
+
