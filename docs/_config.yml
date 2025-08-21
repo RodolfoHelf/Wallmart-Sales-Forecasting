@@ -1,5 +1,5 @@
-# GitHub Pages Configuration - Jekyll Disabled
-# This file configures the site to use custom HTML instead of Jekyll processing
+# GitHub Pages Configuration - Jekyll Completely Disabled
+# This ensures your custom index.html is used instead of README.md
 
 # Site settings
 title: Walmart Sales Forecasting Dashboard
@@ -13,14 +13,15 @@ exclude:
   - README.md
   - "*.md"
   - .nojekyll
+  - _config.yml
 
 # URL settings (update with your actual repository details)
-url: "https://yourusername.github.io/your-repo-name"
-baseurl: "/your-repo-name"
+url: "https://rodolfoh.github.io/Wallmart-Sales-Forecasting"
+baseurl: "/Wallmart-Sales-Forecasting"
 
 # Social media links
 social:
   name: Your Name
   links:
-    - https://github.com/yourusername
+    - https://github.com/RodolfoHelf
     - https://linkedin.com/in/yourusername

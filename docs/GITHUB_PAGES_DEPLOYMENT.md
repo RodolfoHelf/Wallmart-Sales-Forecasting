@@ -17,8 +17,8 @@ First, ensure your repository is properly set up:
 
 ```bash
 # Clone your repository (if not already done)
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/RodolfoHelf/Wallmart-Sales-Forecasting.git
+cd Wallmart-Sales-Forecasting
 
 # Check current status
 git status
@@ -60,20 +60,19 @@ git push origin main
 1. **Go to your repository on GitHub**
 2. **Click Settings tab**
 3. **Scroll down to Pages section**
-4. **Under Source, select "Deploy from a branch"**
-5. **Choose branch: `gh-pages`**
-6. **Click Save**
+4. **Under Source, select "GitHub Actions"**
+5. **The workflow will automatically deploy your site**
 
 ### 5. Automatic Deployment
 
-The GitHub Actions workflow will automatically:
+The updated GitHub Actions workflow will automatically:
 - ✅ Build your static site
-- ✅ Deploy to the `gh-pages` branch
+- ✅ Deploy directly to GitHub Pages
 - ✅ Make your site live
 
 **Your dashboard will be available at:**
 ```
-https://yourusername.github.io/your-repo-name
+https://rodolfoh.github.io/Wallmart-Sales-Forecasting
 ```
 
 ## 🔄 Updating Your Site
@@ -105,7 +104,6 @@ The GitHub Actions workflow will automatically rebuild and deploy your updated s
 
 Edit `docs/_config.yml` to customize:
 - Site title and description
-- Theme and plugins
 - Social media links
 - Repository-specific settings
 
@@ -119,7 +117,7 @@ Edit `docs/_config.yml` to customize:
 ### Custom Domain (Optional)
 
 1. **Purchase a domain** (e.g., `yourdomain.com`)
-2. **Add CNAME record** pointing to `yourusername.github.io`
+2. **Add CNAME record** pointing to `rodolfoh.github.io`
 3. **Create `docs/CNAME` file** with your domain
 4. **Wait for DNS propagation** (up to 24 hours)
 
@@ -129,7 +127,7 @@ Edit `docs/_config.yml` to customize:
 
 #### Site Not Loading
 - ✅ Check if GitHub Pages is enabled
-- ✅ Verify the `gh-pages` branch exists
+- ✅ Verify GitHub Actions workflow completed successfully
 - ✅ Wait a few minutes for deployment
 
 #### Styling Issues
@@ -234,4 +232,4 @@ If you encounter issues:
 
 🎉 **Congratulations! Your Walmart Sales Forecasting Dashboard is now live on GitHub Pages!**
 
-Share your success: `https://yourusername.github.io/your-repo-name`
+Share your success: `https://rodolfoh.github.io/Wallmart-Sales-Forecasting`

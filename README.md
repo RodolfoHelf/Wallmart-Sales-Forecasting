@@ -12,7 +12,7 @@ A comprehensive machine learning-powered sales forecasting dashboard for Walmart
 
 ## 🚀 Live Demo
 
-**🌐 [View Live Dashboard](https://yourusername.github.io/your-repo-name)**
+**🌐 [View Live Dashboard](https://rodolfoh.github.io/Wallmart-Sales-Forecasting)**
 
 ## 📊 Dashboard Sections
 
@@ -103,7 +103,7 @@ Wallmart-Sales-Forecasting/
 
 4. **Automatic Deployment**
    - The GitHub Actions workflow will automatically build and deploy your site
-   - Your dashboard will be available at `https://yourusername.github.io/your-repo-name`
+   - Your dashboard will be available at `https://rodolfoh.github.io/Wallmart-Sales-Forecasting`
 
 ## 📈 Model Performance
 
