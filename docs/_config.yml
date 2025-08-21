@@ -1,5 +1,5 @@
-# GitHub Pages Configuration
-# This file configures the Jekyll site for GitHub Pages
+# GitHub Pages Configuration - Jekyll Disabled
+# This file configures the site to use custom HTML instead of Jekyll processing
 
 # Site settings
 title: Walmart Sales Forecasting Dashboard
@@ -7,45 +7,18 @@ description: ML-powered sales forecasting dashboard for Walmart South Atlantic D
 author: Your Name
 email: your.email@example.com
 
-# Build settings
-theme: jekyll-theme-cayman
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-
-# Exclude from processing
+# Completely disable Jekyll processing
+# This ensures your custom index.html is used instead of README.md
 exclude:
   - README.md
+  - "*.md"
   - .nojekyll
 
-# Collections
-collections:
-  data:
-    output: true
-    permalink: /:collection/:name
-
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"
-
-# Markdown settings
-markdown: kramdown
-highlighter: rouge
-
-# URL settings
+# URL settings (update with your actual repository details)
 url: "https://yourusername.github.io/your-repo-name"
 baseurl: "/your-repo-name"
 
-# Social media
+# Social media links
 social:
   name: Your Name
   links:
