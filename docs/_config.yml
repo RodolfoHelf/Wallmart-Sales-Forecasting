@@ -1,0 +1,53 @@
+# GitHub Pages Configuration
+# This file configures the Jekyll site for GitHub Pages
+
+# Site settings
+title: Walmart Sales Forecasting Dashboard
+description: ML-powered sales forecasting dashboard for Walmart South Atlantic Division
+author: Your Name
+email: your.email@example.com
+
+# Build settings
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude from processing
+exclude:
+  - README.md
+  - .nojekyll
+
+# Collections
+collections:
+  data:
+    output: true
+    permalink: /:collection/:name
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+
+# URL settings
+url: "https://yourusername.github.io/your-repo-name"
+baseurl: "/your-repo-name"
+
+# Social media
+social:
+  name: Your Name
+  links:
+    - https://github.com/yourusername
+    - https://linkedin.com/in/yourusername
