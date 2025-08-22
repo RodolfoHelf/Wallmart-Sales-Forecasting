@@ -8,6 +8,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 import logging
+import json
+
+# Import Plotly chart service
+try:
+    from app.services.plotly_charts import plotly_service
+    PLOTLY_AVAILABLE = True
+except ImportError:
+    PLOTLY_AVAILABLE = False
+    print("Warning: Plotly chart service not available")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -39,6 +48,20 @@ async def startup_event():
     """Initialize services on startup"""
     logger.info("Starting Walmart Sales Forecasting Dashboard...")
     logger.info("Environment: development")
+    
+    # Generate Plotly charts on startup if available
+    if PLOTLY_AVAILABLE:
+        try:
+            logger.info("Generating Plotly.js charts...")
+            charts = plotly_service.generate_all_charts()
+            if charts:
+                logger.info("✅ Plotly.js charts generated successfully!")
+            else:
+                logger.warning("⚠️ Plotly chart generation failed")
+        except Exception as e:
+            logger.error(f"❌ Error generating Plotly charts: {e}")
+    else:
+        logger.info("Plotly charts not available - skipping chart generation")
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
@@ -50,6 +73,7 @@ async def root():
         <title>Walmart Sales Forecasting Dashboard</title>
         <link rel="stylesheet" href="/static/css/style.css?v=2.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     </head>
     <body>
         <div class="dashboard-container">
@@ -129,21 +153,21 @@ async def root():
                         <h2><i class="fas fa-exclamation-triangle"></i> Problem Statement</h2>
                         <div class="problem-description">
                             <h3>Current Challenges</h3>
-                            <p>Walmart's South Atlantic Division faces significant challenges in sales forecasting:</p>
+                            <p style="color: black !important;">Walmart's South Atlantic Division faces significant challenges in sales forecasting:</p>
                             <ul>
-                                <li><strong>Inaccurate Predictions:</strong> Current methods result in high forecast errors</li>
-                                <li><strong>Stockouts:</strong> Insufficient inventory during peak demand periods</li>
-                                <li><strong>Markdowns:</strong> Excess inventory requiring price reductions</li>
-                                <li><strong>Seasonal Variations:</strong> Difficulty predicting holiday and seasonal patterns</li>
+                                <li style="color: black !important;"><strong>Inaccurate Predictions:</strong> Current methods result in high forecast errors</li>
+                                <li style="color: black !important;"><strong>Stockouts:</strong> Insufficient inventory during peak demand periods</li>
+                                <li style="color: black !important;"><strong>Markdowns:</strong> Excess inventory requiring price reductions</li>
+                                <li style="color: black !important;"><strong>Seasonal Variations:</strong> Difficulty predicting holiday and seasonal patterns</li>
                             </ul>
                             
                             <h3>Our Solution</h3>
-                            <p>We implement advanced machine learning techniques to address these challenges:</p>
+                            <p style="color: black !important;">We implement advanced machine learning techniques to address these challenges:</p>
                             <ul>
-                                <li><strong>Multi-Model Approach:</strong> SARIMAX, Prophet, LightGBM, XGBoost</li>
-                                <li><strong>Feature Engineering:</strong> Holiday flags, economic indicators, weather data</li>
-                                <li><strong>Hierarchical Forecasting:</strong> Store and department level predictions</li>
-                                <li><strong>Real-time Updates:</strong> Continuous model retraining and validation</li>
+                                <li style="color: black !important;"><strong>Multi-Model Approach:</strong> SARIMAX, Prophet, LightGBM, XGBoost</li>
+                                <li style="color: black !important;"><strong>Feature Engineering:</strong> Holiday flags, economic indicators, weather data</li>
+                                <li style="color: black !important;"><strong>Hierarchical Forecasting:</strong> Store and department level predictions</li>
+                                <li style="color: black !important;"><strong>Real-time Updates:</strong> Continuous model retraining and validation</li>
                             </ul>
                         </div>
                     </div>
@@ -155,10 +179,10 @@ async def root():
                         <div class="data-info">
                             <h3>Data Sources</h3>
                             <ul>
-                                <li><strong>Historical Sales:</strong> Weekly sales data by store and department</li>
-                                <li><strong>Store Information:</strong> Store characteristics and demographics</li>
-                                <li><strong>External Factors:</strong> Weather, fuel prices, CPI, unemployment</li>
-                                <li><strong>Holiday Calendar:</strong> Major holidays and events</li>
+                                <li style="color: black !important;"><strong>Historical Sales:</strong> Weekly sales data by store and department</li>
+                                <li style="color: black !important;"><strong>Store Information:</strong> Store characteristics and demographics</li>
+                                <li style="color: black !important;"><strong>External Factors:</strong> Weather, fuel prices, CPI, unemployment</li>
+                                <li style="color: black !important;"><strong>Holiday Calendar:</strong> Major holidays and events</li>
                             </ul>
                             
                             <h3>Data Sample</h3>
@@ -174,10 +198,10 @@ async def root():
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>1</td><td>1</td><td>2023-01-01</td><td>$45,000</td><td>Yes</td></tr>
-                                        <tr><td>1</td><td>1</td><td>2023-01-08</td><td>$38,000</td><td>No</td></tr>
-                                        <tr><td>1</td><td>2</td><td>2023-01-01</td><td>$22,000</td><td>Yes</td></tr>
-                                        <tr><td>2</td><td>1</td><td>2023-01-01</td><td>$52,000</td><td>Yes</td></tr>
+                                        <tr><td style="color: black !important;">1</td><td style="color: black !important;">1</td><td style="color: black !important;">2023-01-01</td><td style="color: black !important;">$45,000</td><td style="color: black !important;">Yes</td></tr>
+                                        <tr><td style="color: black !important;">1</td><td style="color: black !important;">1</td><td style="color: black !important;">2023-01-08</td><td style="color: black !important;">$38,000</td><td style="color: black !important;">No</td></tr>
+                                        <tr><td style="color: black !important;">1</td><td style="color: black !important;">2</td><td style="color: black !important;">2023-01-01</td><td style="color: black !important;">$22,000</td><td style="color: black !important;">Yes</td></tr>
+                                        <tr><td style="color: black !important;">2</td><td style="color: black !important;">1</td><td style="color: black !important;">2023-01-01</td><td style="color: black !important;">$52,000</td><td style="color: black !important;">Yes</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -389,8 +413,8 @@ async def root():
                                                 <p><strong>Rural Stores:</strong> Lower volume, higher per-customer value</p>
                                             </div>
                                         </div>
-                                        <p><strong>Performance Range:</strong> 3.5x variation (Store 45: $600K vs Store 20: $2.3M)</p>
-                                        <p><strong>Geographic Pattern:</strong> Coastal stores show 15% higher performance than inland</p>
+                                        <p style="color: black !important;"><strong>Performance Range:</strong> 3.5x variation (Store 45: $600K vs Store 20: $2.3M)</p>
+                                        <p style="color: black !important;"><strong>Geographic Pattern:</strong> Coastal stores show 15% higher performance than inland</p>
                                     </div>
                                 </div>
                             </div>
@@ -824,32 +848,32 @@ async def root():
                                     </thead>
                                     <tbody>
                                         <tr class="best-model">
-                                            <td><strong>LightGBM</strong></td>
-                                            <td><strong>8.2</strong></td>
-                                            <td><strong>7.8</strong></td>
-                                            <td><strong>0.02</strong></td>
-                                            <td>45s</td>
+                                            <td style="color: black !important;"><strong>LightGBM</strong></td>
+                                            <td style="color: black !important;"><strong>8.2</strong></td>
+                                            <td style="color: black !important;"><strong>7.8</strong></td>
+                                            <td style="color: black !important;"><strong>0.02</strong></td>
+                                            <td style="color: black !important;">45s</td>
                                         </tr>
                                         <tr>
-                                            <td>XGBoost</td>
-                                            <td>8.9</td>
-                                            <td>8.3</td>
-                                            <td>0.05</td>
-                                            <td>52s</td>
+                                            <td style="color: black !important;">XGBoost</td>
+                                            <td style="color: black !important;">8.9</td>
+                                            <td style="color: black !important;">8.3</td>
+                                            <td style="color: black !important;">0.05</td>
+                                            <td style="color: black !important;">52s</td>
                                         </tr>
                                         <tr>
-                                            <td>Prophet</td>
-                                            <td>12.1</td>
-                                            <td>11.7</td>
-                                            <td>0.08</td>
-                                            <td>120s</td>
+                                            <td style="color: black !important;">Prophet</td>
+                                            <td style="color: black !important;">12.1</td>
+                                            <td style="color: black !important;">11.7</td>
+                                            <td style="color: black !important;">0.08</td>
+                                            <td style="color: black !important;">120s</td>
                                         </tr>
                                         <tr>
-                                            <td>SARIMAX</td>
-                                            <td>15.3</td>
-                                            <td>14.9</td>
-                                            <td>0.12</td>
-                                            <td>180s</td>
+                                            <td style="color: black !important;">SARIMAX</td>
+                                            <td style="color: black !important;">15.3</td>
+                                            <td style="color: black !important;">14.9</td>
+                                            <td style="color: black !important;">0.12</td>
+                                            <td style="color: black !important;">180s</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -886,20 +910,78 @@ async def root():
                     <div class="content-card">
                         <h2><i class="fas fa-tachometer-alt"></i> Interactive Dashboard</h2>
                         <div class="dashboard-content">
-                            <h3>Real-time Monitoring</h3>
-                            <p>This section will contain interactive charts and graphs showing:</p>
-                            <ul>
-                                <li><strong>Sales Trends:</strong> Historical vs. predicted sales</li>
-                                <li><strong>Forecast Accuracy:</strong> Model performance over time</li>
-                                <li><strong>Store Performance:</strong> Comparative analysis by location</li>
-                                <li><strong>Seasonal Patterns:</strong> Holiday and seasonal effects</li>
-                            </ul>
-                            
-                            <div class="chart-placeholder">
-                                <div class="placeholder-text">
-                                    <i class="fas fa-chart-line fa-3x"></i>
-                                    <p>Interactive charts will be displayed here</p>
-                                    <p>Connect to your data source to see real-time visualizations</p>
+                            <!-- Key Metrics Summary -->
+                            <div class="metrics-summary">
+                                <div class="metric-card">
+                                    <h4>📈 Total Records</h4>
+                                    <p class="metric-number">6,435</p>
+                                    <p>Weekly observations</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4>🏪 Stores</h4>
+                                    <p class="metric-number">45</p>
+                                    <p>South Atlantic Division</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4>📅 Time Period</h4>
+                                    <p class="metric-number">2.7 years</p>
+                                    <p>Feb 2010 - Oct 2012</p>
+                                </div>
+                                <div class="metric-card">
+                                    <h4>💰 Avg Weekly Sales</h4>
+                                    <p class="metric-number">$1,046,967</p>
+                                    <p>Across all stores</p>
+                                </div>
+                            </div>
+
+                            <!-- Charts Grid -->
+                            <div class="charts-grid">
+                                <!-- Sales Distribution -->
+                                <div class="chart-container">
+                                    <div class="chart-card">
+                                        <h4>📊 Weekly Sales Distribution</h4>
+                                        <div id="salesDistributionChart" class="plotly-chart"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Store Performance -->
+                                <div class="chart-container">
+                                    <div class="chart-card">
+                                        <h4>🏪 Top Performing Stores</h4>
+                                        <div id="storePerformanceChart" class="plotly-chart"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Sales Trend -->
+                                <div class="chart-container">
+                                    <div class="chart-card">
+                                        <h4>📈 Sales Trend Over Time</h4>
+                                        <div id="salesTrendChart" class="plotly-chart"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Holiday Effect -->
+                                <div class="chart-container">
+                                    <div class="chart-card">
+                                        <h4>🎉 Holiday Impact Analysis</h4>
+                                        <div id="holidayEffectChart" class="plotly-chart"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Monthly Seasonality -->
+                                <div class="chart-container">
+                                    <div class="chart-card">
+                                        <h4>📅 Monthly Seasonality Pattern</h4>
+                                        <div id="monthlySeasonalityChart" class="plotly-chart"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Temperature Correlation -->
+                                <div class="chart-container">
+                                    <div class="chart-card">
+                                        <h4>🌡️ Temperature vs Sales Correlation</h4>
+                                        <div id="temperatureCorrelationChart" class="plotly-chart"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -909,6 +991,100 @@ async def root():
         </div>
 
         <script src="/static/js/main.js"></script>
+        
+        <!-- Plotly Charts Data and Rendering -->
+        <script>
+            // Chart data from Python backend
+            const chartData = {
+                "sales_distribution": """ + json.dumps(plotly_service.charts.get('sales_distribution', {}) if PLOTLY_AVAILABLE and hasattr(plotly_service, 'charts') and plotly_service.charts else {}) + """,
+                "store_performance": """ + json.dumps(plotly_service.charts.get('store_performance', {}) if PLOTLY_AVAILABLE and hasattr(plotly_service, 'charts') and plotly_service.charts else {}) + """,
+                "sales_trend": """ + json.dumps(plotly_service.charts.get('sales_trend', {}) if PLOTLY_AVAILABLE and hasattr(plotly_service, 'charts') and plotly_service.charts else {}) + """,
+                "holiday_effect": """ + json.dumps(plotly_service.charts.get('holiday_effect', {}) if PLOTLY_AVAILABLE and hasattr(plotly_service, 'charts') and plotly_service.charts else {}) + """,
+                "monthly_seasonality": """ + json.dumps(plotly_service.charts.get('monthly_seasonality', {}) if PLOTLY_AVAILABLE and hasattr(plotly_service, 'charts') and plotly_service.charts else {}) + """,
+                "temperature_correlation": """ + json.dumps(plotly_service.charts.get('temperature_correlation', {}) if PLOTLY_AVAILABLE and hasattr(plotly_service, 'charts') and plotly_service.charts else {}) + """
+            };
+            
+            // Render all charts when page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                // Wait for Plotly to be available
+                if (typeof Plotly !== 'undefined') {
+                    renderAllCharts();
+                } else {
+                    // Retry after a short delay
+                    setTimeout(renderAllCharts, 1000);
+                }
+            });
+            
+            function renderAllCharts() {
+                try {
+                    let chartsRendered = 0;
+                    
+                    // Sales Distribution Chart
+                    if (chartData.sales_distribution.data && chartData.sales_distribution.layout) {
+                        Plotly.newPlot('salesDistributionChart', 
+                                     chartData.sales_distribution.data, 
+                                     chartData.sales_distribution.layout);
+                        chartsRendered++;
+                    }
+                    
+                    // Store Performance Chart
+                    if (chartData.store_performance.data && chartData.store_performance.layout) {
+                        Plotly.newPlot('storePerformanceChart', 
+                                     chartData.store_performance.data, 
+                                     chartData.store_performance.layout);
+                        chartsRendered++;
+                    }
+                    
+                    // Sales Trend Chart
+                    if (chartData.sales_trend.data && chartData.sales_trend.layout) {
+                        Plotly.newPlot('salesTrendChart', 
+                                     chartData.sales_trend.data, 
+                                     chartData.sales_trend.layout);
+                        chartsRendered++;
+                    }
+                    
+                    // Holiday Effect Chart
+                    if (chartData.holiday_effect.data && chartData.holiday_effect.layout) {
+                        Plotly.newPlot('holidayEffectChart', 
+                                     chartData.holiday_effect.data, 
+                                     chartData.holiday_effect.layout);
+                        chartsRendered++;
+                    }
+                    
+                    // Monthly Seasonality Chart
+                    if (chartData.monthly_seasonality.data && chartData.monthly_seasonality.layout) {
+                        Plotly.newPlot('monthlySeasonalityChart', 
+                                     chartData.monthly_seasonality.data, 
+                                     chartData.monthly_seasonality.layout);
+                        chartsRendered++;
+                    }
+                    
+                    // Temperature Correlation Chart
+                    if (chartData.temperature_correlation.data && chartData.temperature_correlation.layout) {
+                        Plotly.newPlot('temperatureCorrelationChart', 
+                                     chartData.temperature_correlation.data, 
+                                     chartData.temperature_correlation.layout);
+                        chartsRendered++;
+                    }
+                    
+                    if (chartsRendered > 0) {
+                        console.log(`✅ ${chartsRendered} Plotly charts rendered successfully!`);
+                    } else {
+                        console.log('⚠️ No charts available to render');
+                        // Show placeholder message
+                        document.querySelectorAll('.plotly-chart').forEach(chart => {
+                            chart.innerHTML = '<div style="text-align: center; padding: 50px; color: #666;"><i class="fas fa-chart-line fa-3x"></i><p>Chart data not available</p><p>Please refresh the page</p></div>';
+                        });
+                    }
+                } catch (error) {
+                    console.error('❌ Error rendering charts:', error);
+                    // Show error message
+                    document.querySelectorAll('.plotly-chart').forEach(chart => {
+                        chart.innerHTML = '<div style="text-align: center; padding: 50px; color: #dc3545;"><i class="fas fa-exclamation-triangle fa-3x"></i><p>Error loading chart</p><p>Please check console for details</p></div>';
+                    });
+                }
+            }
+        </script>
     </body>
     </html>
     """
